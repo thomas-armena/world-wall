@@ -14,6 +14,11 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader'
+			},
+			{
+				test: /\.css$/,
+				exclude: /node_modules/,
+				use: ['style-loader', 'css-loader']
 			}
 		]
 	},
@@ -21,5 +26,7 @@ module.exports = {
 		filename: 'transformed.js',
 		path: __dirname + '/build'
 	},
-	plugins: [HTMLWebpackPluginConfig]
+	plugins: [
+		HTMLWebpackPluginConfig
+	]
 };
