@@ -1,16 +1,16 @@
-.sidebarmain {
+.sidebar {
+	background-color: #555;
 	height: 100%;
 	width: 200px;
-	top: 0;
-	left: 0;
+	top: 0px;
+	left: 0px;
 	overflow-x: hidden;
 }
 
-.menuwindow {
-	background-color: #555;
-	height: 100px;
-	width:100px;
-	top:0px;
-	left:0px;
+html, body, #app, #app>div {
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	padding: 0px;
+	margin: 0px;
 }
-
