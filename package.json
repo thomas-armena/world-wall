@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "konva": "^2.1.7",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-konva": "^1.7.9"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
