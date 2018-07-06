@@ -1,10 +1,14 @@
-var React = require('react');
-var SideBar = require('./SideBar')
+import React from 'react';
+import SideBar from './SideBar';
+import Wall from './Wall';
 
-module.exports = class App extends React.Component {
+export default class App extends React.Component {
 	render() {
 		return (
-			<SideBar />
+			<div>
+				<Wall />
+				<SideBar />
+			</div>
 		);
 
 	}
