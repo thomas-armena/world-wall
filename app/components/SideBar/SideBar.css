@@ -7,6 +7,37 @@
 	top: 0px;
 	left: 0px;
 	overflow-x: hidden;
+	box-shadow: 10px -10px 15px #333, 10px 10px 15px #333;
+}
+
+.sidebar-out {
+	left: 0px;
+	animation-name: slideout;
+        animation-duration: 1s;	
+}
+
+.sidebar-in {
+	left: -260px;
+	animation-name: slidein;
+        animation-duration: 1s;	
+}
+
+@keyframes slidein {
+	from {left:0px;}
+	to {left:-260px;}
+}
+
+@keyframes slideout {
+	from {left:-260px;}
+	to {left:0px;}
+}
+
+.slidebutton {
+	position: absolute;
+	background-color: #222;
+	left: 260px;
+	height: 100%;
+	width: 40px;
 }
 
 html, body, #app, #app>div {
