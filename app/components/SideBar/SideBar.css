@@ -7,19 +7,19 @@
 	top: 0px;
 	left: 0px;
 	overflow-x: hidden;
-	box-shadow: 10px -10px 15px #333, 10px 10px 15px #333;
+	box-shadow: 1px -1px 15px #333, 1px 1px 15px #333;
 }
 
 .sidebar-out {
 	left: 0px;
 	animation-name: slideout;
-        animation-duration: 1s;	
+        animation-duration: 0.5s;	
 }
 
 .sidebar-in {
 	left: -260px;
 	animation-name: slidein;
-        animation-duration: 1s;	
+        animation-duration: 0.5s;	
 }
 
 @keyframes slidein {

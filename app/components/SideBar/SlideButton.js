@@ -5,7 +5,7 @@ export default class SlideButton extends React.Component {
 	
 	render(){
 		return(
-			<button 
+			<div 
 				className="slidebutton" 
 				onClick={() => this.props.onClick()}
 			/>
