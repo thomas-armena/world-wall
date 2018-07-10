@@ -19,7 +19,7 @@ export default class TextBox extends React.Component {
 					y={this.props.y}
 					width={200}
 					height={200}
-					fill={Konva.Util.getRandomColor()}
+					fill='red'
 				/>
 				<Text
 					x={this.props.x}
