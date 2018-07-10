@@ -14,7 +14,8 @@
     "konva": "^2.1.7",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-konva": "^1.7.9"
+    "react-konva": "^1.7.9",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

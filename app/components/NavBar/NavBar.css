@@ -19,7 +19,7 @@
 	float: left;
 }
 
-.nav-bar li a {
+.nav-bar li .link {
 	display: block;
 	color: white;
 	text-align: center;
@@ -27,7 +27,7 @@
 	text-decoration: none;
 }
 
-.nav-bar li a:hover {
+.nav-bar li .link:hover {
 	background-color: #4CAF50;
 }
 
