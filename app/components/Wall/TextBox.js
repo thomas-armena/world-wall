@@ -15,15 +15,15 @@ export default class TextBox extends React.Component {
 		return(
 			<Group draggable={true}>
 				<Rect
-					x={this.state.x}
-					y={this.state.y}
+					x={this.props.x}
+					y={this.props.y}
 					width={200}
 					height={200}
 					fill={Konva.Util.getRandomColor()}
 				/>
 				<Text
-					x={this.state.x}
-					y={this.state.y}
+					x={this.props.x}
+					y={this.props.y}
 					text={this.state.text}
 				/>
 			</Group>
