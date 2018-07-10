@@ -22,9 +22,10 @@ export default class Wall extends React.Component {
 	}
 
 	updateSize() {		
-		var container = document.getElementById('editor-wrapper');
-		const width = container.offsetWidth;
-		const height = container.offsetHeight;
+		var container = document.getElementById('wall');
+		const width = window.innerWidth;
+		const height = window.innerHeight-30;
+		console.log(width);
 		this.setState( { stageWidth: width, stageHeight: height });
 	}
 
@@ -63,7 +64,7 @@ export default class Wall extends React.Component {
 
 	render(){
 		return (
-			<div className="wall" 
+			<div id="wall" 
 				onMouseOver={()=>{this.setState({mouseOverStage: true})}}
 				onMouseOut={()=>{this.setState({mouseOverStage: false})}}
 			>
@@ -74,7 +75,7 @@ export default class Wall extends React.Component {
 				>
 					<Layer>
 						<TextBox text="Hello World" x={300} y={300} />
-						<TextBox text="FUCK BITCHEZZZ" x={500} y={300} />
+						<TextBox text="Hello Person" x={500} y={300} />
 					</Layer>
 				</Stage>
 			</div>
