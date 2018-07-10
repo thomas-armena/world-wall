@@ -6,3 +6,33 @@
 	position: fixed;
 	left: 0px;
 }
+
+.nav-bar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	top: 0;
+}
+
+.nav-bar li {
+	float: left;
+}
+
+.nav-bar li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 5px 30px;
+	text-decoration: none;
+}
+
+.nav-bar li a:hover {
+	background-color: #4CAF50;
+}
+
+.nav-bar h1 {
+	margin: 0;
+	padding: 0;
+	float: left;
+}
