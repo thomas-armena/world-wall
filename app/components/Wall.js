@@ -9,9 +9,23 @@ export default class Wall extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			stageHeight: 100,
+			stageWidth: 100,
 			mouseOverStage: false,
 			scale: 1
 		};
+	}
+
+	componentDidMount() {
+		this.updateSize()
+		window.addEventListener("resize", ()=>this.updateSize());
+	}
+
+	updateSize() {		
+		var container = document.getElementById('editor-wrapper');
+		const width = container.offsetWidth;
+		const height = container.offsetHeight;
+		this.setState( { stageWidth: width, stageHeight: height });
 	}
 
 	componentWillMount() {
@@ -20,6 +34,7 @@ export default class Wall extends React.Component {
 
 	componentWillUnmount() {
 		window.removeEventListener("wheel", (e)=>this.zoomStage(e));
+		window.removeEventListener("resize", ()=>this.updateSize());
 	}
 
 	zoomStage(e) {
@@ -52,8 +67,8 @@ export default class Wall extends React.Component {
 				onMouseOver={()=>{this.setState({mouseOverStage: true})}}
 				onMouseOut={()=>{this.setState({mouseOverStage: false})}}
 			>
-				<Stage width={window.innerWidth} 
-					height={window.innerHeight} 
+				<Stage width={this.state.stageWidth} 
+					height={this.state.stageHeight} 
 					draggable={true}
 					ref="stage"
 				>
