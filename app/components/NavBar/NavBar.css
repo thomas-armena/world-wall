@@ -27,7 +27,7 @@
 	text-decoration: none;
 }
 
-.nav-bar li .link:hover {
+.nav-bar li .link:hover:not(.activated) {
 	background-color: #4CAF50;
 }
 
@@ -35,4 +35,8 @@
 	margin: 0;
 	padding: 0;
 	float: left;
+}
+
+.activated {
+        background-color: #003300;
 }

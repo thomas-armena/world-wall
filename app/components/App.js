@@ -25,16 +25,28 @@ export default class App extends React.Component {
 		const About = () => (
 			<div>About</div>
 		);
+		
+		const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
+		  	<Route
+		    		path={to}
+		    		exact={activeOnlyWhenExact}
+		    		children={({ match }) => (
+		      		<div>
+					<Link className={match ? "link activated" : "link"} to={to}>{label}</Link>
+		      		</div>
+		    )}
+		  />
+		);
 		return (
 			<Router>
 				<div>
 					<NavBar >
 						<h1> world wall </h1>
 						<ul>
-							<li><Link className="link" to="/">home</Link></li>
-							<li><Link className="link" to="/create">create</Link></li>
-							<li><Link className="link" to="/view">view</Link></li>
-							<li><Link className="link" to="/about">about</Link></li>
+							<li><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
+							<li><MenuLink to="/create" label="Create" /></li>
+							<li><MenuLink to="/view" label="View" /></li>
+							<li><MenuLink to="/about" label="About" /></li>
 						</ul>
 					</ NavBar>
 					<div id="content-wrapper">
