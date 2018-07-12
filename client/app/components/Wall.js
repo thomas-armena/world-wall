@@ -31,11 +31,13 @@ export default class Wall extends React.Component {
 
 	componentWillMount() {
 		window.addEventListener("wheel", (e)=>this.zoomStage(e));
+		window.addEventListener("keypress", ()=>this.saveStage());
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener("wheel", (e)=>this.zoomStage(e));
 		window.removeEventListener("resize", ()=>this.updateSize());
+		window.removeEventListener("keypress", ()=>this.saveStage());
 	}
 
 	zoomStage(e) {
@@ -60,6 +62,13 @@ export default class Wall extends React.Component {
             		stageInst.position(newPos);
             		stageInst.batchDraw();
 		}
+	}
+
+	saveStage(){
+		window.alert('saved!');
+		var stageInst = this.refs.stage.getStage();
+		var json = stageInst.toJSON();
+		console.log(json);
 	}
 
 	render(){

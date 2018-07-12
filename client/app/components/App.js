@@ -1,6 +1,7 @@
 import React from 'react';
 import SideBar from './SideBar';
 import Wall from './Wall';
+import View from './View';
 import NavBar from './NavBar';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -18,9 +19,6 @@ export default class App extends React.Component {
 			<div>Home</div>
 		);
 
-		const View = () => (
-			<div>View</div>
-		);
 
 		const About = () => (
 			<div>About</div>
