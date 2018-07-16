@@ -12,7 +12,13 @@ export default class View extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get('http://localhost:8000/')
+		axios.post('http://localhost:8000/', {
+			email: 'thomasarmena2@gmail.com',
+			username: 'thomasarmena2',
+			password: '12345',
+			passwordConf: '12345'
+			
+		})
 		.then((response) => {
 				console.log(response.status);
 				console.log(response.data);

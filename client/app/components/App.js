@@ -2,6 +2,8 @@ import React from 'react';
 import SideBar from './SideBar';
 import Wall from './Wall';
 import View from './View';
+import Login from './Login';
+import Register from './Register';
 import NavBar from './NavBar';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -24,6 +26,7 @@ export default class App extends React.Component {
 			<div>About</div>
 		);
 		
+
 		const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
 		  	<Route
 		    		path={to}
@@ -45,6 +48,8 @@ export default class App extends React.Component {
 							<li><MenuLink to="/create" label="Create" /></li>
 							<li><MenuLink to="/view" label="View" /></li>
 							<li><MenuLink to="/about" label="About" /></li>
+							<li><MenuLink to="/login" label="Login" /></li>
+							<li><MenuLink to="/register" label="Register" /></li>
 						</ul>
 					</ NavBar>
 					<div id="content-wrapper">
@@ -52,6 +57,8 @@ export default class App extends React.Component {
 						<Route path="/create" component={Editor} />
 						<Route path="/view" component={View} />
 						<Route path="/about" component={About} />
+						<Route path="/login" component={Login} />
+						<Route path="/register" component={Register} />
 					</div>
 				</div>
 			</Router>

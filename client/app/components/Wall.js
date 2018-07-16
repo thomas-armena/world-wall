@@ -65,7 +65,7 @@ export default class Wall extends React.Component {
 	}
 
 	saveStage(){
-		window.alert('saved!');
+		//window.alert('saved!');
 		var stageInst = this.refs.stage.getStage();
 		var json = stageInst.toJSON();
 		console.log(json);
