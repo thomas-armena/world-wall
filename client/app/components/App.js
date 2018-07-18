@@ -7,7 +7,24 @@ import Register from './Register';
 import NavBar from './NavBar';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import axios from 'axios';
+import UserActions from '../actions/UserActions';
+
 export default class App extends React.Component {
+	
+	componentWillMount() {
+
+		//login when application starts
+		axios.defaults.withCredentials = true;
+		axios.get('http://localhost:8000/profile')
+			.then(response => {
+				UserActions.userLogin(response.data);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
+
 	render() {
 
 		const Editor = () => (

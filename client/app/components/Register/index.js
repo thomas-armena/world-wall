@@ -1,25 +1,27 @@
 import React from 'react';
 import axios from 'axios';
+import UserStore from '../../stores/UserStore';
+import UserActions from '../../actions/UserActions';
 
 export default class Register extends React.Component {
 	
 	constructor(props){
 		super(props);
 		this.state = {
-			message: "Please log in",
-			user: "John Doe"
+			user: UserStore.getUser(),
 		}
 	}
 
-	componentDidMount() {
-		axios.defaults.withCredentials = true;
-		axios.get('http://localhost:8000/profile')
-			.then(response => {
-				this.setState({user: response.data.username});
-			})
-			.catch(error => {
-				console.log(error);
-			});
+	componentWillMount() {
+		UserStore.on('CHANGE', this.callback);
+	}
+
+	callback() {
+		this.setState({ user: UserStore.getUser() });
+	}
+
+	componentWillUnmount() {
+		UserStore.removeListener('CHANGE', this.callback); 
 	}
 
 	submit() {
@@ -37,8 +39,7 @@ export default class Register extends React.Component {
 			
 		})
 		.then(response => {
-				console.log(response.data);
-				this.setState({user: response.data.username});
+				UserActions.userLogin(response.data);
 		})
 		.catch(error => {
 				console.log(error);
@@ -46,6 +47,11 @@ export default class Register extends React.Component {
 	}
 
 	render() {
+		if (this.state.user == null){
+			var message = "Not signed in.";
+		} else {
+			var message = "Currently logged in as: "+this.state.user.username
+		}
 
 		return(
 			<div>
@@ -61,7 +67,7 @@ export default class Register extends React.Component {
 					<br />
 					<button type="button" onClick={()=>this.submit()}>Submit </button>
 					<br />
-					<div>{"Currently logged in as: "+this.state.user}</div>
+					<div>{message}</div>
 				</div>
 			</div>
 		);

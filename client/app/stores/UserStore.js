@@ -1,25 +1,39 @@
 import ActionTypes from '../constants';
 import Dispatcher from '../dispatcher';
+import EventEmitter from 'events';
 
-let current_user = null;
 
-class UserStore {
+class UserStore extends EventEmitter{
 	
 	constructor() {
+		super();
 		Dispatcher.register(this.registerToActions.bind(this));
+		this.current_user = null;
 	}
 
 	registerToActions(action) {
 		switch(action.actionType){
 			case ActionTypes.USER_LOGIN:
 				this.setUser(action.payload);
-			break;
+				break;
+			case ActionTypes.USER_LOGOUT:
+				this.removeUser();
+				break;
 		}
 	}
 
 	setUser(user){
-		window.alert('Logged in');
-		current_user = user;
+		this.current_user = user;
+		this.emit('CHANGE');
+	}
+
+	removeUser(){
+		this.current_user = null;
+		this.emit('CHANGE');
+	}
+
+	getUser() {
+		return this.current_user;
 	}
 
 }

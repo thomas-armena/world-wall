@@ -4,10 +4,16 @@ import ActionTypes from '../constants';
 class UserActions {
 	
 	userLogin(user) {
-		window.alert('dispatched');
 		Dispatcher.dispatch({
 			actionType: ActionTypes.USER_LOGIN,
 			payload: user
+		});
+	}
+
+	userLogout() {
+		Dispatcher.dispatch({
+			actionType: ActionTypes.USER_LOGOUT,
+			payload: null,
 		});
 	}
 }

@@ -57,6 +57,16 @@ router.get('/profile', function(req, res, next) {
 		});
 });
 
-
+router.get('/logout', function(req, res, next) {
+	if (req.session){
+		req.session.destroy(function(err) {
+			if (err){
+				return next(err);
+			} else {
+				res.send('successful');
+			}
+		})
+	}
+});
 
 module.exports = router;
