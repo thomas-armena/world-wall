@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import UserActions from '../actions/UserActions';
+import UserStore from '../stores/UserStore';
 
 export default class Login extends React.Component {
 
@@ -32,7 +34,9 @@ export default class Login extends React.Component {
 		})
 			.then(response => {
 				console.log(response.data);
+				UserActions.userLogin(response.data);
 				this.setState({user: response.data.username});
+
 			})
 			.catch(error => {
 				console.log(error);

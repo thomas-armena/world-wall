@@ -1,7 +1,7 @@
 import React from 'react';
-import './SideBar/SideBar.css';
-import SlideButton from './SideBar/SlideButton';
-import Selector from './SideBar/Selector';
+import './SideBar.css';
+import SlideButton from './SlideButton';
+import Selector from './Selector';
 export default class SideBar extends React.Component {
 	
 	constructor(props) {

@@ -1,8 +1,8 @@
 import React from 'react';
-import './Wall/wall.css';
+import './wall.css';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
-import TextBox from './Wall/TextBox';
+import TextBox from './TextBox';
 
 export default class Wall extends React.Component {
 
