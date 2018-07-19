@@ -2,7 +2,10 @@ import React from 'react';
 import './wall.css';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
-import TextBox from './TextBox';
+import WallActions from '../../actions/WallActions';
+import WallStore from '../../stores/WallStore';
+//import Item from './Item';
+//import Textbox from './Item/TextBox';
 
 export default class Wall extends React.Component {
 
@@ -11,14 +14,30 @@ export default class Wall extends React.Component {
 		this.state = {
 			stageHeight: 100,
 			stageWidth: 100,
-			mouseOverStage: false,
-			scale: 1
+			scale: 1,
+			items: {},
 		};
+		this.mouseOverStage = false;
 	}
 
 	componentDidMount() {
 		this.updateSize()
 		window.addEventListener("resize", ()=>this.updateSize());
+		WallStore.on('UPDATE', ()=>this.onUpdate());
+	}
+
+	componentWillMount() {
+		window.addEventListener("wheel", (e)=>this.zoomStage(e));
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener("wheel", (e)=>this.zoomStage(e));
+		window.removeEventListener("resize", ()=>this.updateSize());
+		WallStore.removeListener('UPDATE', ()=>this.onUpdate());
+	}
+
+	onUpdate() {
+		this.setState({ items: WallStore.getItems() });	
 	}
 
 	updateSize() {		
@@ -29,19 +48,9 @@ export default class Wall extends React.Component {
 		this.setState( { stageWidth: width, stageHeight: height });
 	}
 
-	componentWillMount() {
-		window.addEventListener("wheel", (e)=>this.zoomStage(e));
-		window.addEventListener("keypress", ()=>this.saveStage());
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener("wheel", (e)=>this.zoomStage(e));
-		window.removeEventListener("resize", ()=>this.updateSize());
-		window.removeEventListener("keypress", ()=>this.saveStage());
-	}
 
 	zoomStage(e) {
-		if(this.state.mouseOverStage == true){
+		if(this.mouseOverStage == true){
 			var scaleBy = 1 + Math.abs(Math.min(e.deltaY, 100)) / 90;
 			var stageInst = this.refs.stage.getStage();
 			e.preventDefault();
@@ -64,18 +73,13 @@ export default class Wall extends React.Component {
 		}
 	}
 
-	saveStage(){
-		//window.alert('saved!');
-		var stageInst = this.refs.stage.getStage();
-		var json = stageInst.toJSON();
-		console.log(json);
-	}
 
 	render(){
+		console.log(this.state.items);
 		return (
 			<div id="wall" 
-				onMouseOver={()=>{this.setState({mouseOverStage: true})}}
-				onMouseOut={()=>{this.setState({mouseOverStage: false})}}
+				onMouseOver={()=>{this.mouseOverStage = true}}
+				onMouseOut={()=>{this.mouseOverStage = false}}
 			>
 				<Stage width={this.state.stageWidth} 
 					height={this.state.stageHeight} 
@@ -83,8 +87,6 @@ export default class Wall extends React.Component {
 					ref="stage"
 				>
 					<Layer>
-						<TextBox text="Hello World" x={300} y={300} />
-						<TextBox text="Hello Person" x={500} y={300} />
 					</Layer>
 				</Stage>
 			</div>
