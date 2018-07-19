@@ -4,8 +4,8 @@ import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import WallActions from '../../actions/WallActions';
 import WallStore from '../../stores/WallStore';
-//import Item from './Item';
-//import Textbox from './Item/TextBox';
+import Item from './Item';
+import TextBox from './Item/TextBox';
 
 export default class Wall extends React.Component {
 
@@ -67,15 +67,33 @@ export default class Wall extends React.Component {
 				x: -(mousePointTo.x - stageInst.getPointerPosition().x / newScale) * newScale,
 				y: -(mousePointTo.y - stageInst.getPointerPosition().y / newScale) * newScale
             		};
-			console.log(e.deltaY);
             		stageInst.position(newPos);
             		stageInst.batchDraw();
 		}
 	}
 
 
-	render(){
+	render(){	
 		console.log(this.state.items);
+
+		let itemsJSX = [];
+		for (var i in this.state.items){
+			const itemData = this.state.items[i];
+			let item = null;
+			switch(itemData.itemType){
+				case 'TEXT_BOX':
+					item = <TextBox 
+						id = {itemData.id}
+						text = {itemData.text}
+						x = {itemData.x}
+						y = {itemData.y}
+						width = {itemData.width}
+						height = {itemData.height}
+						/>
+					break;
+			}
+			itemsJSX.push(item);
+		}
 		return (
 			<div id="wall" 
 				onMouseOver={()=>{this.mouseOverStage = true}}
@@ -87,6 +105,7 @@ export default class Wall extends React.Component {
 					ref="stage"
 				>
 					<Layer>
+						{itemsJSX}
 					</Layer>
 				</Stage>
 			</div>

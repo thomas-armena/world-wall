@@ -1,31 +1,21 @@
 import React from 'react';
 import { Group, Rect, Text } from 'react-konva';
+import WallActions from '../../../actions/WallActions';
 
 export default class Item extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			x: this.props.x,
-			y: this.props.y,
-			width: 100,
-			height: 100,
-		};
 	}
 
 	handleDragEnd(e) {
-		this.setState({
-			x: e.target.x,
-			y: e.target.y,
-		});
+		WallActions.itemMove(this.props.id, e.target.x(), e.target.y());
 	}
 
 	render() {
 		return(
-			<Group draggable={true} onDragEnd={this.handleDragEnd}>
-				{props.children}
-				{"x: " + this.state.x}
-				{"y: " + this.state.y}
+			<Group x={this.props.x} y={this.props.y} draggable={true} onDragEnd={(e)=>this.handleDragEnd(e)}>
+				{this.props.children}
 			</Group>
 		);
 	}

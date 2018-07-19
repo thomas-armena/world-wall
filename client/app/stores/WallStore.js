@@ -20,28 +20,28 @@ class WallStore extends EventEmitter {
 				this.removeItem(action.payload);
 				break;
 			case ActionTypes.ITEM_MOVE:
-				this.moveItem(action.payload);
+				this.moveItem(action.payload.id, action.payload.x, action.payload.y);
 				break;
 		}
 	}
 
 	addItem(item){
 		//window.alert('add item');
-		this.items[this.nextId.toString()] = item;
-		this.items[this.nextId.toString()].id = this.nextId
+		this.items["item_"+this.nextId] = item;
+		this.items["item_"+this.nextId].id = this.nextId
 		this.nextId++;
 		this.emit('UPDATE');
 	}
 
-	_removeItem(index){
+	removeItem(index){
 		window.alert('rm item');
 		//place remove logic here
 		this.emit('UPDATE');
 	}
 
-	_moveItem(id, x, y){
-		window.alert('mv item');
-		//place move logic here
+	moveItem(id, x, y){
+		this.items["item_"+id].x = x;
+		this.items["item_"+id].y = y;
 		this.emit('UPDATE');
 	}
 

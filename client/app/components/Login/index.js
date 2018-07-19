@@ -13,7 +13,7 @@ export default class Login extends React.Component {
 	}
 
 	componentWillMount() {
-		UserStore.on('CHANGE', this.callback);
+		UserStore.on('CHANGE', ()=>this.callback());
 	}
 
 	callback() {
