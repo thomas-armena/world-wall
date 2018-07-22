@@ -11,6 +11,7 @@ export default class Selector extends React.Component {
 			y: 300,
 			width: 100,
 			height: 100,
+			rotation: 0,
 			text: "HELLO WORLD"
 		});
 	}

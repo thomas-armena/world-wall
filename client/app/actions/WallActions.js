@@ -17,10 +17,17 @@ class WallActions {
 		});
 	}
 
-	itemMove(id, x, y) {
+	itemMove(id, x, y, width, height, rotation) {
 		Dispatcher.dispatch({
 			actionType: ActionTypes.ITEM_MOVE,
-			payload: { id: id, x: x, y: y},
+			payload: { id: id, x: x, y: y, width: width, height: height, rotation: rotation},
+		});
+	}
+
+	itemClick(id) {
+		Dispatcher.dispatch({
+			actionType: ActionTypes.ITEM_CLICK,
+			payload: id,
 		});
 	}
 }

@@ -5,14 +5,20 @@ import { Rect, Text } from 'react-konva';
 export default class TextBox extends React.Component {
 	render() {
 		return(
-			<Item x={this.props.x} y={this.props.y} id={this.props.id}>
+			<Item x={this.props.x} 
+				y={this.props.y} 
+				width={this.props.width}
+				height={this.props.height}
+				rotation={this.props.rotation}
+				id={this.props.id}
+			>
 				<Rect
 					width={this.props.width}
 					height={this.props.height}
 					fill='red'
 				/>
 				<Text
-					text={this.props.x + ", " + this.props.y  }
+					text={this.props.text}
 				/>
 			</Item>
 		);

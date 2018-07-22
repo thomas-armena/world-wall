@@ -6,6 +6,7 @@ import WallActions from '../../actions/WallActions';
 import WallStore from '../../stores/WallStore';
 import Item from './Item';
 import TextBox from './Item/TextBox';
+import TransformerComponent from './TransformerComponent';
 
 export default class Wall extends React.Component {
 
@@ -15,7 +16,9 @@ export default class Wall extends React.Component {
 			stageHeight: 100,
 			stageWidth: 100,
 			scale: 1,
+			canDrag: true,
 			items: {},
+			selectedId: null,
 		};
 		this.mouseOverStage = false;
 	}
@@ -24,6 +27,7 @@ export default class Wall extends React.Component {
 		this.updateSize()
 		window.addEventListener("resize", ()=>this.updateSize());
 		WallStore.on('UPDATE', ()=>this.onUpdate());
+		WallStore.emit('UPDATE');
 	}
 
 	componentWillMount() {
@@ -37,7 +41,7 @@ export default class Wall extends React.Component {
 	}
 
 	onUpdate() {
-		this.setState({ items: WallStore.getItems() });	
+		this.setState({ items: WallStore.getItems() , selectedId: WallStore.getSelectedId() });	
 	}
 
 	updateSize() {		
@@ -61,6 +65,7 @@ export default class Wall extends React.Component {
 			y: stageInst.getPointerPosition().y / oldScale - stageInst.y() / oldScale,
 		    	};
 		    	var newScale = e.deltaY > 0 ? Math.min(oldScale * scaleBy, 4) : Math.max(oldScale / scaleBy, 0.1);
+			WallStore.scale = newScale;
 		    	stageInst.scale({ x: newScale, y: newScale });
 
 		    	var newPos = {
@@ -72,10 +77,17 @@ export default class Wall extends React.Component {
 		}
 	}
 
+	handleClick(e) {
+
+		if(e.target == this.refs.stage.getStage())
+			WallActions.itemClick(null);
+
+	}
+
 
 	render(){	
 		console.log(this.state.items);
-
+		//console.log(this.state.selectedId);		
 		let itemsJSX = [];
 		for (var i in this.state.items){
 			const itemData = this.state.items[i];
@@ -89,6 +101,7 @@ export default class Wall extends React.Component {
 						y = {itemData.y}
 						width = {itemData.width}
 						height = {itemData.height}
+						rotation = {itemData.rotation}
 						/>
 					break;
 			}
@@ -101,10 +114,12 @@ export default class Wall extends React.Component {
 			>
 				<Stage width={this.state.stageWidth} 
 					height={this.state.stageHeight} 
-					draggable={true}
+					draggable={this.state.canDrag}
 					ref="stage"
+					onClick={(e)=>this.handleClick(e)}
 				>
 					<Layer>
+						<TransformerComponent />
 						{itemsJSX}
 					</Layer>
 				</Stage>
