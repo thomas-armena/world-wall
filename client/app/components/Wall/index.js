@@ -119,8 +119,8 @@ export default class Wall extends React.Component {
 					onClick={(e)=>this.handleClick(e)}
 				>
 					<Layer>
-						<TransformerComponent />
 						{itemsJSX}
+						<TransformerComponent />
 					</Layer>
 				</Stage>
 			</div>

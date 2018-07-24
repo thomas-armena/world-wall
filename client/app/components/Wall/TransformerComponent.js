@@ -3,8 +3,6 @@ import { Circle, Group, Layer,  Rect } from 'react-konva';
 import WallStore from '../../stores/WallStore';
 import WallActions from '../../actions/WallActions';
 
-const padding = 10;
-
 export default class TransformerComponent extends React.Component {
 
 	constructor(props){
@@ -62,6 +60,36 @@ export default class TransformerComponent extends React.Component {
 		}
 
 	}
+
+	rotate(e){
+		var node = null;
+		if (this.refs.layer != null && this.state.visible){
+			var stage = this.refs.layer.getStage();
+			var node = stage.findOne('.item'+this.state.selectedId);
+		}
+		if (node != null){
+			const pivx = this.xRef;
+            const pivy = this.yRef;
+			const xx = stage.getPointerPosition().x / WallStore.scale - stage.x() / WallStore.scale; 
+			const yy = stage.getPointerPosition().y / WallStore.scale - stage.y() / WallStore.scale;
+            const dx = pivx - xx;
+            const dy = pivy - yy;
+            const angle = Math.atan2(-dy,-dx) * 180 / Math.PI;
+
+            node.rotation(angle);
+            console.log(angle); 
+            stage.batchDraw();
+			WallActions.itemMove(
+				this.state.selectedId,
+				node.x(),
+				node.y(),
+				node.width(),
+				node.height(),
+				node.rotation(),
+			);
+		}
+	}
+
 	transform(e, circle){
 		console.log(e)
 		var node = null;
@@ -72,26 +100,33 @@ export default class TransformerComponent extends React.Component {
 		if (node != null){
 			const xx = stage.getPointerPosition().x / WallStore.scale - stage.x() / WallStore.scale; 
 			const yy = stage.getPointerPosition().y / WallStore.scale - stage.y() / WallStore.scale;
+            const angle = node.rotation() * Math.PI / 180;
+            const dx = xx - this.xRef;
+            const dy = yy - this.yRef;
+            const dxx = dx*Math.cos(angle) + dy*Math.sin(Math.PI - angle); 
+            const dyy = dx*Math.sin(angle) + dy*Math.cos(Math.PI - angle); 
 			switch(circle){
 				case 'topleft':
-					node.x(xx + padding);
-					node.y(yy + padding);
-					node.width(this. wRef - (xx - this.xRef) - padding);
-					node.height(this.hRef - (yy - this.yRef) - (padding));
+					node.x(xx);
+					node.y(yy);
+					node.width(this.wRef - dxx);
+					node.height(this.hRef + dyy);
 					break;
 				case 'topright':
-					node.y(yy + padding);
-					node.width(xx - this.xRef - padding);
-					node.height(this.hRef - (yy - this.yRef) - (padding));
+                    node.x(this.xRef + dyy*Math.sin(Math.PI - angle));
+					node.y(this.yRef + dyy*Math.cos(Math.PI - angle));
+					node.width(dxx);
+					node.height(this.hRef + dyy);
 					break;
 				case 'bottomleft':
-					node.x(xx+ (padding));
-					node.width(this.wRef - (xx - this.xRef) - padding);
-					node.height((yy - this.yRef) - (padding));
+					node.x(this.xRef + dxx*Math.cos(angle));
+                    node.y(this.yRef + dxx*Math.sin(angle));
+					node.width(this.wRef - dxx);
+					node.height(-dyy);
 					break;
 				case 'bottomright':
-					node.width(e.target.x() - (padding*2));
-					node.height(e.target.y() - (padding*2));
+					node.width(e.target.x());
+					node.height(e.target.y());
 					break;
 			}
 			stage.batchDraw();
@@ -113,18 +148,13 @@ export default class TransformerComponent extends React.Component {
 			var node = stage.findOne('.item'+this.state.selectedId);
 		}
 		if (node != null){
+            const angle = node.rotation() * Math.PI / 180;
 			var transformProps = {
-				x : node.x() - padding,	
-				y : node.y() - padding,
-				width : node.width() + padding * 2,
-				height : node.height() + padding * 2,
+				x : node.x(),
+				y : node.y(),
+				width : node.width(),
+				height : node.height(),
 				rotation : node.rotation(),
-			}
-			var rectProps = {
-				width : transformProps.width,
-				height : transformProps.height,
-				stroke : 'green',
-				strokeWidth : 3,
 			}
 			var circleProps = {
 				fill : 'blue',
@@ -149,7 +179,6 @@ export default class TransformerComponent extends React.Component {
 				ref="layer"
 				{ ... transformProps }
 			>
-				<Rect { ... rectProps } />
 				<Circle { ... circleProps }
 					x={0}
 					y={0}
@@ -177,6 +206,14 @@ export default class TransformerComponent extends React.Component {
 					ref="bottomright"
 					onDragMove={(e)=>this.transform(e, 'bottomright')}	
 				/>
+				<Circle { ... circleProps }
+					x={transformProps.width + 20}
+					y={0}
+					ref="rotater"
+					onDragMove={(e)=>this.rotate(e)}	
+					onMouseDown={()=>this.updateRef()}
+				/>
+                
 					
 			</Group>
 		);
