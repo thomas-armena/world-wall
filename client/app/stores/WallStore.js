@@ -7,7 +7,7 @@ class WallStore extends EventEmitter {
 	constructor() {
 		super();
 		Dispatcher.register(this.registerToAction.bind(this));
-		this.items = {};	
+		this.items = {title: 'New Wall'};	
 		this.nextId = 0;
 		this.selectedId = null;
 		this.scale = 1;

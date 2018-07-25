@@ -1,7 +1,7 @@
 import React from 'react';
 import SideBar from './SideBar';
+import ProjectDropdown from './ProjectDropdown';
 import Wall from './Wall';
-import View from './View';
 import Login from './Login';
 import Register from './Register';
 import NavBar from './NavBar';
@@ -31,8 +31,15 @@ export default class App extends React.Component {
 			<div>
 				<SideBar />
 				<Wall />
+                <ProjectDropdown />
 			</div>
 		);
+
+        const View = () => (
+            <div>
+                <Wall />
+            </div>
+        );
 
 		const Home = () => (
 			<div>Home</div>
