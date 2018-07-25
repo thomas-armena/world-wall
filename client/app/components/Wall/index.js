@@ -1,6 +1,6 @@
 import React from 'react';
 import './wall.css';
-import { Stage, Layer, Rect, Text } from 'react-konva';
+import { Group, Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import WallActions from '../../actions/WallActions';
 import WallStore from '../../stores/WallStore';
@@ -102,11 +102,16 @@ export default class Wall extends React.Component {
 						width = {itemData.width}
 						height = {itemData.height}
 						rotation = {itemData.rotation}
+                        edit = {this.props.edit}
 						/>
 					break;
 			}
 			itemsJSX.push(item);
 		}
+        let transformer = <Group />
+        if (this.props.edit){
+            transformer = <TransformerComponent />
+        }
 		return (
 			<div id="wall" 
 				onMouseOver={()=>{this.mouseOverStage = true}}
@@ -120,7 +125,7 @@ export default class Wall extends React.Component {
 				>
 					<Layer>
 						{itemsJSX}
-						<TransformerComponent />
+                        {transformer}
 					</Layer>
 				</Stage>
 			</div>

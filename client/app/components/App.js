@@ -30,14 +30,14 @@ export default class App extends React.Component {
 		const Editor = () => (
 			<div>
 				<SideBar />
-				<Wall />
+				<Wall edit={true} />
                 <ProjectDropdown />
 			</div>
 		);
 
         const View = () => (
             <div>
-                <Wall />
+                <Wall edit={false}/>
             </div>
         );
 

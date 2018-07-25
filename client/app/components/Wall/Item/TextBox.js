@@ -10,6 +10,7 @@ export default class TextBox extends React.Component {
 				width={this.props.width}
 				height={this.props.height}
 				rotation={this.props.rotation}
+                edit={this.props.edit}
 				id={this.props.id}
 			>
 				<Rect

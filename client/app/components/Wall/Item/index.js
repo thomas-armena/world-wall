@@ -44,7 +44,7 @@ export default class Item extends React.Component {
 				width={this.props.width}
 				height={this.props.height}
 				rotation={this.props.rotation}
-				draggable={true} 
+				draggable={this.props.edit} 
 				onDragEnd={(e)=>this.handleDragEnd(e)}
 				onClick={()=>this.select()}
 				onDragStart={(e)=>this.handleDragStart(e)}
