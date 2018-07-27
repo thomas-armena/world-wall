@@ -7,8 +7,8 @@ class WallStore extends EventEmitter {
 	constructor() {
 		super();
 		Dispatcher.register(this.registerToAction.bind(this));
-		this.items = {title: 'New Wall'};	
-		this.nextId = 0;
+		this.items = {title: 'New Wall', nextId: 0,};	
+        this.loadedItems = [];
 		this.selectedId = null;
 		this.scale = 1;
 	}
@@ -17,7 +17,7 @@ class WallStore extends EventEmitter {
 		switch(action.actionType){
 			case ActionTypes.ITEM_ADD:
 				this.addItem(action.payload);
-				this.selectItem(this.nextId-1);
+				this.selectItem(this.items.nextId-1);
 				break;
 			case ActionTypes.ITEM_REMOVE:
 				this.removeItem(action.payload);
@@ -32,14 +32,23 @@ class WallStore extends EventEmitter {
 				break;
 			case ActionTypes.ITEM_CLICK:
 				this.selectItem(action.payload);
+                break;
+            case ActionTypes.WALL_LOAD:
+                this.loadWall(action.payload);
+                this.selectItem(null);
+                break;
+            case ActionTypes.WALL_RENAME:
+                this.renameWall(action.payload);
+                break;
+
 		}
 	}
 
 	addItem(item){
 		//window.alert('add item');
-		this.items["item_"+this.nextId] = item;
-		this.items["item_"+this.nextId].id = this.nextId
-		this.nextId++;
+		this.items["item_"+this.items.nextId] = item;
+		this.items["item_"+this.items.nextId].id = this.items.nextId
+		this.items.nextId++;
 		this.emit('UPDATE');
 	}
 
@@ -62,6 +71,16 @@ class WallStore extends EventEmitter {
 		this.selectedId = id;
 		this.emit('UPDATE');
 	}
+    
+    loadWall(loadData){
+        this.items = loadData;
+        this.emit('UPDATE');
+    }
+
+    renameWall(name){
+        this.items.title = name;
+        this.emit('UPDATE');
+    }
 
 	getItems(){
 		return this.items;
@@ -70,7 +89,15 @@ class WallStore extends EventEmitter {
 	getSelectedId(){
 		return this.selectedId;
 	}
-	
+
+    setLoadData(loadedItems){
+        this.loadedItems = loadedItems;
+        this.emit('DATA_LOADED');
+    }
+
+    getLoadData(){
+        return this.loadedItems;
+    }
 
 }
 

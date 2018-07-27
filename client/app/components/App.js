@@ -5,6 +5,7 @@ import Wall from './Wall';
 import Login from './Login';
 import Register from './Register';
 import NavBar from './NavBar';
+import FocusWindow from './FocusWindow';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from 'axios';
@@ -23,6 +24,8 @@ export default class App extends React.Component {
 			.catch(error => {
 				console.log(error);
 			});
+
+        //
 	}
 
 	render() {
@@ -84,14 +87,10 @@ export default class App extends React.Component {
 						<Route path="/login" component={Login} />
 						<Route path="/register" component={Register} />
 					</div>
+                    <FocusWindow />
 				</div>
 			</Router>
 		);
 
 	}
 }
-
-
-
-
-	

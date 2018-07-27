@@ -30,6 +30,20 @@ class WallActions {
 			payload: id,
 		});
 	}
+
+    wallLoad(loadData) {
+        Dispatcher.dispatch({
+            actionType: ActionTypes.WALL_LOAD,
+            payload: loadData,
+        });
+    }
+
+    wallRename(name) {
+        Dispatcher.dispatch({
+            actionType: ActionTypes.WALL_RENAME,
+            payload: name,
+        });
+    }
 }
 
 export default new WallActions();
