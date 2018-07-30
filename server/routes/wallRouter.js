@@ -9,9 +9,9 @@ router.post('/save', function(req, res, next){
             collaborators: req.body.collaborators,
             wall: req.body.items,
         };
-
-        Wall.create(wallData, function(err, wall){
-            if(err) {
+       
+        Wall.update({ 'wall.title': wallData.wall.title, author: wallData.author }, wallData, { upsert: true }, (err, wall) => {
+            if(err){
                 return next(err);
             } else {
                 req.session.wall = wall;

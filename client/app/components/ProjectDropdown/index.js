@@ -44,12 +44,16 @@ export default class ProjectDropdown extends React.Component {
     }
 
     handleSave(){
+
 		axios.defaults.withCredentials = true;
         const saveData = {
             author: UserStore.getUser().username,
             collaborators: [UserStore.getUser().username],
             items: WallStore.getItems(),
         }
+
+        saveData.items.title = window.prompt('Save as: ', saveData.items.title);
+        WallActions.wallLoad(saveData.items);
 
         axios.post('http://localhost:8000/save', saveData)
             .then(response => {
