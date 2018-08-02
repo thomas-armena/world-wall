@@ -11,7 +11,7 @@ export default class LoadOptions extends React.Component {
         super(props);
         this.state = {
             loadOptions: WallStore.getLoadData(),
-        }
+        };
     }
 
     componentDidMount(){
@@ -45,6 +45,7 @@ export default class LoadOptions extends React.Component {
 
         return(
             <div className="content-wrapper">
+                <div className="header">Load Project</div>
                 <Loads />
             </div>
         );

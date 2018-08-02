@@ -31,8 +31,9 @@ export default class FocusWindow extends React.Component {
     render(){
         const visibility = this.state.show ? 'show' : '';
         return(
-            <div className={'underlay '+visibility} >
-                <div className='content'>
+            <div>
+                <div className={'underlay '+visibility} />
+                <div className={'content ' + visibility} >
                     <LoadOptions />
                 </div>
             </div>
