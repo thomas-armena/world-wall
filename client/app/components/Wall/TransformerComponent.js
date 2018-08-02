@@ -157,7 +157,7 @@ export default class TransformerComponent extends React.Component {
 				rotation : node.rotation(),
 			}
 			var circleProps = {
-				fill : 'blue',
+				fill : '#FE4A49',
 				radius : 6, 
 				draggable : true,
 			}

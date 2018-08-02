@@ -10,7 +10,7 @@ export default class FocusWindow extends React.Component {
         this.state = {
             show: FWindowStore.isShowing(),
             content: FWindowStore.getContent(),
-        }
+        };
     }
 
     componentDidMount(){

@@ -1,7 +1,7 @@
 .nav-bar {
 	z-index: 4;
-	background-color: green;
-	height: 30px;
+	background-color: #FE4A49;
+	height: 40px;
 	width: 100%;
 	position: fixed;
 	left: 0px;
@@ -21,22 +21,24 @@
 
 .nav-bar li .link {
 	display: block;
-	color: white;
+	color: #F4F4F8;
 	text-align: center;
-	padding: 5px 30px;
+	padding: 10px 40px;
 	text-decoration: none;
+    box-sizing: border-box;
 }
 
 .nav-bar li .link:hover:not(.activated) {
-	background-color: #4CAF50;
+    box-shadow: inset 0 -2px 0 #2AB7CA;
 }
 
 .nav-bar h1 {
+    color: #F4F4F8;
 	margin: 0;
-	padding: 0;
+	padding: 0 40px;
 	float: left;
 }
 
 .activated {
-        background-color: #003300;
+        background-color: #2AB7CA;
 }

@@ -2,16 +2,16 @@ import React from 'react';
 import './NavBar.css';
 
 export default class NavBar extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
-	render() {
-		return(
-			<div className="nav-bar">
-				{this.props.children}
-			</div>
-		);
-	}	
+    render() {
+        return(
+            <div className="nav-bar">
+                {this.props.children}
+            </div>
+        );
+    }   
 
 }
