@@ -6,7 +6,7 @@ import Login from './Login';
 import Register from './Register';
 import NavBar from './NavBar';
 import FocusWindow from './FocusWindow';
-import './App.css';
+import './styles.scss';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import UserActions from '../actions/UserActions';

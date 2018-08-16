@@ -1,5 +1,5 @@
 import React from 'react';
-import './SideBar.css';
+import '../styles.scss';
 import WallActions from '../../actions/WallActions';
 
 export default class Selector extends React.Component {
@@ -15,7 +15,7 @@ export default class Selector extends React.Component {
 			text: "HELLO WORLD"
 		});
 	}
-	
+
 	render(){
 		return(
 			<div className="selector" onClick={this.handleClick} ></div>

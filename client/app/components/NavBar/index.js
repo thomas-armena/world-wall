@@ -1,5 +1,5 @@
 import React from 'react';
-import './NavBar.css';
+import '../styles.scss';
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -12,6 +12,6 @@ export default class NavBar extends React.Component {
                 {this.props.children}
             </div>
         );
-    }   
+    }
 
 }

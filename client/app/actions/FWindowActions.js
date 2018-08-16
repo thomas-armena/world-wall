@@ -3,11 +3,11 @@ import ActionTypes from '../constants';
 import React from 'react';
 
 class FWindowActions {
-   fWindowShow(){
+    fWindowShow(){
         Dispatcher.dispatch({
             actionType: ActionTypes.FWINDOW_SHOW,
         });
-   }
+    }
 
     fWindowHide(){
         Dispatcher.dispatch({

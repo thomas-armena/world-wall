@@ -1,5 +1,5 @@
 import React from 'react';
-import './wall.css';
+import '../styles.scss';
 import { Group, Stage, Layer, } from 'react-konva';
 import WallActions from '../../actions/WallActions';
 import WallStore from '../../stores/WallStore';
@@ -24,13 +24,11 @@ export default class Wall extends React.Component {
     componentDidMount() {
         this.updateSize();
         window.addEventListener('resize', ()=>this.updateSize());
+        window.addEventListener('wheel', (e)=>this.zoomStage(e));
         WallStore.on('UPDATE', ()=>this.onUpdate());
         WallStore.emit('UPDATE');
     }
 
-    componentWillMount() {
-        window.addEventListener('wheel', (e)=>this.zoomStage(e));
-    }
 
     componentWillUnmount() {
         window.removeEventListener('wheel', (e)=>this.zoomStage(e));
@@ -39,16 +37,14 @@ export default class Wall extends React.Component {
     }
 
     onUpdate() {
-        this.setState({ items: WallStore.getItems() , selectedId: WallStore.getSelectedId() }); 
+        this.setState({ items: WallStore.getItems() , selectedId: WallStore.getSelectedId() });
     }
 
-    updateSize() {      
+    updateSize() {
         const width = window.innerWidth;
         const height = window.innerHeight-40;
-        console.log(width);
         this.setState( { stageWidth: width, stageHeight: height });
     }
-
 
     zoomStage(e) {
         if(this.mouseOverStage == true){
@@ -82,14 +78,14 @@ export default class Wall extends React.Component {
     }
 
 
-    render(){   
+    render(){
         let itemsJSX = [];
         for (var i in this.state.items){
             const itemData = this.state.items[i];
             let item = null;
             switch(itemData.itemType){
             case 'TEXT_BOX':
-                item = <TextBox 
+                item = <TextBox
                     id = {itemData.id}
                     text = {itemData.text}
                     x = {itemData.x}
@@ -108,12 +104,12 @@ export default class Wall extends React.Component {
             transformer = <TransformerComponent />;
         }
         return (
-            <div id="wall" 
+            <div id="wall"
                 onMouseOver={()=>{this.mouseOverStage = true;}}
                 onMouseOut={()=>{this.mouseOverStage = false;}}
             >
-                <Stage width={this.state.stageWidth} 
-                    height={this.state.stageHeight} 
+                <Stage width={this.state.stageWidth}
+                    height={this.state.stageHeight}
                     draggable={this.state.canDrag}
                     ref="stage"
                     onClick={(e)=>this.handleClick(e)}

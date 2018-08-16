@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles.css';
+import '../styles.scss';
 import FWindowActions from '../../actions/FWindowActions';
 import WallActions from '../../actions/WallActions';
 import WallStore from '../../stores/WallStore';
@@ -31,13 +31,13 @@ export default class LoadOptions extends React.Component {
         WallActions.wallLoad(wall);
         FWindowActions.fWindowHide();
     }
-    
+
     render(){
         const Loads = ()=>(
             <div>
                 {
                     this.state.loadOptions.map(load => (
-                        <button onClick={()=>this.handleClick(load.wall)}>{load.wall.title}</button>
+                        <div className="loadbtn" onClick={()=>this.handleClick(load.wall)}>{load.wall.title}</div>
                     ))
                 }
             </div>
@@ -46,9 +46,10 @@ export default class LoadOptions extends React.Component {
         return(
             <div className="content-wrapper">
                 <div className="header">Load Project</div>
-                <Loads />
+                <div className="loadcontent">
+                    <Loads />
+                </div>
             </div>
         );
     }
 }
-

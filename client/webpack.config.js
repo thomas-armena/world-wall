@@ -8,6 +8,7 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 
 module.exports = {
 	entry: __dirname + '/app/index.js',
+	mode: process.env.NODE_ENV === "production" ? "production" : "development",
 	module: {
 		rules: [
 			{
@@ -16,9 +17,9 @@ module.exports = {
 				loader: 'babel-loader'
 			},
 			{
-				test: /\.css$/,
-				exclude: /node_modules/,
-				use: ['style-loader', 'css-loader']
+				test: /\.scss$/,
+				//exclude: /node_modules/,
+				use: ['style-loader', 'css-loader','sass-loader']
 			}
 		]
 	},

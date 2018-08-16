@@ -5,8 +5,8 @@ import { Rect, Text } from 'react-konva';
 export default class TextBox extends React.Component {
     render() {
         return(
-            <Item x={this.props.x} 
-                y={this.props.y} 
+            <Item x={this.props.x}
+                y={this.props.y}
                 width={this.props.width}
                 height={this.props.height}
                 rotation={this.props.rotation}

@@ -39,12 +39,14 @@ export default class Item extends React.Component {
 
 	render() {
 		return(
-			<Group x={this.props.x} 
-				y={this.props.y} 
+			<Group x={this.props.x}
+				y={this.props.y}
 				width={this.props.width}
 				height={this.props.height}
+				offsetX={this.props.width/2}
+				offsetY={this.props.height/2}
 				rotation={this.props.rotation}
-				draggable={this.props.edit} 
+				draggable={this.props.edit}
 				onDragEnd={(e)=>this.handleDragEnd(e)}
 				onClick={()=>this.select()}
 				onDragStart={(e)=>this.handleDragStart(e)}
@@ -57,4 +59,3 @@ export default class Item extends React.Component {
 		);
 	}
 }
-

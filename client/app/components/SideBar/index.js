@@ -1,55 +1,75 @@
 import React from 'react';
-import './SideBar.css';
+import '../styles.scss';
 import SlideButton from './SlideButton';
 import Selector from './Selector';
 export default class SideBar extends React.Component {
-	
-	constructor(props) {
-		super(props);
-		this.state = {
-			out: true
-		};
-	}
 
-	slide() {
-		this.setState({out: !this.state.out});
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            outItems: false,
+            outProject: false,
+        };
+    }
+
+    slideItems() {
+        this.setState({outItems: !this.state.outItems});
+    }
+
+    slideProject(){
+        this.setState({outProject: !this.state.outProject});
+    }
 
 
-	render() {
-		let slideclass = this.state.out? "sidebar-out" : "sidebar-in";
-		return (
-				
-			<div className={"sidebar "+slideclass}>
-				<div className="sidebar-content">
-					<Selector />
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector></Selector>
-					<Selector />
-				</div>
-				<div className="sidebar-ext">
-					<SlideButton onClick={()=>this.slide()} />
-				</div>
-			</div>
-			
-		);
-	}
+    render() {
+        let itemsclass = this.state.outItems? 'sidebar-out' : 'sidebar-in';
+        let projectclass = this.state.outProject? 'sidebar-out' : 'sidebar-in';
+        return (
+
+            <div>
+                <div className={'sidebar-items '+itemsclass}>
+                    <div className='sidebar-content-items'>
+                        <div className='header-items'>Items</div>
+                        <Selector />
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector></Selector>
+                        <Selector />
+                    </div>
+                    <div className="sidebar-ext">
+                        <div className='slidebutton-items' onClick={()=>this.slideItems()} />
+                    </div>
+                </div>
+                <div className={'sidebar-project '+projectclass}>
+                    <div className='sidebar-content-project'>
+                        <div className='header-project'>Project Settings</div>
+                        <div className='option'>Save</div>
+                        <div className='option'>Load</div>
+                        <div className='option'>Rename</div>
+                    </div>
+                    <div className="sidebar-ext">
+                        <div className='slidebutton-project' onClick={()=>this.slideProject()} />
+                    </div>
+                </div>
+            </div>
+
+        );
+    }
 }
