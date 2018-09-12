@@ -69,6 +69,7 @@ class WallStore extends EventEmitter {
 		this.emit('UPDATE');
 	}
 
+
 	_selectItem(id){
 		this.selectedId = id;
 		this.emit('UPDATE');

@@ -33,12 +33,11 @@ export default class EditorWindow extends React.Component {
         } else {
             this.setState({content:<div/>})
         }
-
     }
 
     render(){
         return(
-            <div className='window-editor'>
+            <div className='editor-window'>
                 {this.state.content}
             </div>
         )
