@@ -13,7 +13,6 @@ export default class Wall extends React.Component {
         this.state = {
             stageHeight: 100,
             stageWidth: 100,
-            scale: 1,
             canDrag: true,
             items: {},
             selectedId: null,
@@ -27,6 +26,12 @@ export default class Wall extends React.Component {
         window.addEventListener('wheel', (e)=>this.zoomStage(e));
         WallStore.on('UPDATE', ()=>this.onUpdate());
         WallStore.emit('UPDATE');
+        /*
+        var stageInst = this.refs.stage.getStage();
+        stageInst.scale(WallStore.scale);
+        stageInst.x(WallStore.x);
+        stageInst.y(WallStore.y)
+        */
     }
 
 
@@ -34,10 +39,20 @@ export default class Wall extends React.Component {
         window.removeEventListener('wheel', (e)=>this.zoomStage(e));
         window.removeEventListener('resize', ()=>this.updateSize());
         WallStore.removeListener('UPDATE', ()=>this.onUpdate());
+        /*
+        var stageInst = this.refs.stage.getStage();
+        WallStore.scale = stageInst.scale();
+        WallStore.x = stageInst.position().x;
+        WallStore.y = stageInst.position().y;
+        */
+
     }
 
     onUpdate() {
-        this.setState({ items: WallStore.getItems() , selectedId: WallStore.getSelectedId() });
+        this.setState({
+          items: WallStore.getItems(),
+          selectedId: WallStore.getSelectedId()
+        });
     }
 
     updateSize() {
@@ -65,6 +80,8 @@ export default class Wall extends React.Component {
                 x: -(mousePointTo.x - stageInst.getPointerPosition().x / newScale) * newScale,
                 y: -(mousePointTo.y - stageInst.getPointerPosition().y / newScale) * newScale
             };
+            WallStore.x = newPos.x;
+            WallStore.y = newPos.y;
             stageInst.position(newPos);
             stageInst.batchDraw();
         }
@@ -113,6 +130,7 @@ export default class Wall extends React.Component {
                     draggable={this.state.canDrag}
                     ref="stage"
                     onClick={(e)=>this.handleClick(e)}
+
                 >
                     <Layer>
                         {itemsJSX}

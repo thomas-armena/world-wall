@@ -6,6 +6,7 @@ import Login from './Login';
 import Register from './Register';
 import NavBar from './NavBar';
 import FocusWindow from './FocusWindow';
+import EditorWindow from './EditorWindow';
 import './styles.scss';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -33,6 +34,7 @@ export default class App extends React.Component {
                 <SideBar />
                 <Wall edit={true} />
                 <ProjectDropdown />
+                <EditorWindow />
             </div>
         );
 

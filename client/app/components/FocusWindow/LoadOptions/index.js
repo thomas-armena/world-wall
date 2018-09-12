@@ -1,8 +1,8 @@
 import React from 'react';
-import '../styles.scss';
-import FWindowActions from '../../actions/FWindowActions';
-import WallActions from '../../actions/WallActions';
-import WallStore from '../../stores/WallStore';
+import '../../styles.scss';
+import FWindowActions from '../../../actions/FWindowActions';
+import WallActions from '../../../actions/WallActions';
+import WallStore from '../../../stores/WallStore';
 
 
 export default class LoadOptions extends React.Component {

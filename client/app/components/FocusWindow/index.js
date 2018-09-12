@@ -2,8 +2,8 @@ import React from 'react';
 import '../styles.scss';
 import FWindowStore from '../../stores/FWindowStore';
 import FWindowActions from '../../actions/FWindowActions';
-import LoadOptions from '../LoadOptions';
-import Save from '../Save';
+import LoadOptions from './LoadOptions';
+import Save from './Save';
 
 export default class FocusWindow extends React.Component {
     constructor(props){

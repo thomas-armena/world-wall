@@ -20,6 +20,8 @@ export default class TextBox extends React.Component {
                 />
                 <Text
                     text={this.props.text}
+                    padding={20}
+                    width={this.props.width}
                 />
             </Item>
         );

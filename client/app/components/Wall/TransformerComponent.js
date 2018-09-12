@@ -29,6 +29,8 @@ export default class TransformerComponent extends React.Component {
 	componentWillUnmount(){
 		WallStore.removeListener('UPDATE', ()=>this.updateCallback());
 		WallStore.removeListener('MOUNTED', ()=>this.mountedCallback());
+		WallStore.removeListener('TRANSFORM_START', ()=>this.tstartCallback());
+		WallStore.removeListener('TRANSFORM_END', ()=>this.tendCallback());
 	}
 
 	updateCallback(){
@@ -48,7 +50,6 @@ export default class TransformerComponent extends React.Component {
 	}
 
 	updateRef(){
-		console.log('update');
 		var node = null;
 		if (this.refs.layer != null && this.state.visible){
 			var stage = this.refs.layer.getStage();
@@ -103,65 +104,18 @@ export default class TransformerComponent extends React.Component {
 			var node = stage.findOne('.item'+this.state.selectedId);
 		}
 		if (node != null){
-
-			/*
-			const xx = stage.getPointerPosition().x / WallStore.scale - stage.x() / WallStore.scale;
-			const yy = stage.getPointerPosition().y / WallStore.scale - stage.y() / WallStore.scale;
-
-      const angle = node.rotation() * Math.PI / 180;
-      const dx = xx - this.xClickRef;
-      const dy = yy - this.yClickRef;
-
-      const dxx = dx*Math.cos(angle) + dy*Math.sin(Math.PI - angle);
-      const dyy = - (dx*Math.sin(angle) + dy*Math.cos(Math.PI - angle));
-			const ww = node.width()*Math.cos(angle) + node.height()*Math.sin(Math.PI - angle);
-      const hh = - node.width()*Math.sin(angle) + node.height()*Math.cos(Math.PI - angle);
-
-			switch(circle){
-				case 'topleft':
-					const ww = (this.wRef - dxx)*Math.cos(angle);
-					const hh = - (this.hRef - dyy)*Math.cos(Math.PI - angle);
-					node.width(this.wRef - dxx);
-					node.height(this.hRef - dyy);
-					node.x(xx + ww/2);
-					node.y(yy + hh/2);
-					break;
-				case 'topright':
-          node.x(this.xRef - dyy*Math.sin(Math.PI - angle));
-					node.y(this.yRef - dyy*Math.cos(Math.PI - angle));
-					node.width(dxx);
-					node.height(this.hRef - dyy);
-					break;
-				case 'bottomleft':
-					node.x(this.xRef + dxx*Math.cos(angle));
-                    node.y(this.yRef + dxx*Math.sin(angle));
-					node.width(this.wRef - dxx);
-					node.height(dyy);
-					break;
-				case 'bottomright':
-					node.width(e.target.x());
-					node.height(e.target.y());
-					break;
-			}
-			*/
 			const xx = stage.getPointerPosition().x / WallStore.scale - stage.x() / WallStore.scale;
 			const yy = stage.getPointerPosition().y / WallStore.scale - stage.y() / WallStore.scale;
 			const angle = node.rotation() * Math.PI / 180;
 			const dx = xx - this.xClickRef;
 			const dy = yy - this.yClickRef;
-
-
-
 			const d = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
-
-			console.log(this.xClickRef + ' -> ' + xx);
-			console.log(d);
-
 			const beta = -Math.atan2(dy,-dx);
 			const theta = beta - angle;
 			let newX, newY, newWidth, newHeight;
 			newX = this.xRef + dx/2;
 			newY = this.yRef + dy/2;
+
 			switch(circle){
 				case 'topleft':
 					newWidth = this.wRef + d*Math.cos(theta);
@@ -185,81 +139,6 @@ export default class TransformerComponent extends React.Component {
 			node.width(newWidth);
 			node.height(newHeight);
 
-
-			/*
-			const xOffset = newWidth/2 * Math.cos(angle);
-			const yOffset = newHeight/2 * Math.cos(angle);
-
-			console.log(theta)
-			//console.log('d '+d);
-			console.log('w '+this.wRef+ ' -> '+ newWidth);
-			console.log('h '+this.hRef+ ' -> '+ newHeight);
-
-
-
-			let x1 = node.x()-xOffset;
-			let y1 = node.y()-yOffset;
-
-			let x2 = node.x()+xOffset;
-			let y2 = node.y()-yOffset;
-
-			let x3 = node.x()-xOffset;
-			let y3 = node.y()+yOffset;
-
-			let x4 = node.x()+xOffset;
-			let y4 = node.y()+yOffset;
-
-			switch(circle){
-				case 'topleft':
-					x1 = xx;
-					y1 = yy;
-
-					x2 = x1 + newWidth*Math.cos(angle);
-					y2 = y1 + newHeight*Math.sin(angle);
-
-					x3 = x1 - newWidth*Math.sin(angle);
-					y3 = y1 + newHeight*Math.cos(angle);
-					break;
-				case 'topright':
-					x2 = xx;
-					y2 = yy;
-
-					y1 = yy;
-					x4 = xx;
-					break;
-				case 'bottomleft':
-					x3 = xx;
-					y3 = yy;
-
-					x1 = xx;
-					y4 = yy;
-					break;
-				case 'bottomright':
-					x4 = xx;
-					y4 = yy;
-
-					y3 = yy;
-					x2 = xx;
-					break;
-			}
-
-			//node.width(x2 - x1);
-			//node.height()
-
-
-			console.log('------')
-			console.log(x1 + ' ' + x2);
-			console.log(x4 + ' ' + x3);
-			console.log('------')
-
-			console.log(angle);
-
-			node.x( x1 );
-			node.y( y1 );
-			node.width( newWidth );
-			node.height( newHeight );
-			*/
-
 			stage.batchDraw();
 			WallActions.itemMove(
 				this.state.selectedId,
@@ -279,14 +158,15 @@ export default class TransformerComponent extends React.Component {
 			var node = stage.findOne('.item'+this.state.selectedId);
 		}
 		if (node != null){
-            const angle = node.rotation() * Math.PI / 180;
+      const angle = node.rotation() * Math.PI / 180;
+			const padding = 10;
 			var transformProps = {
 				x : node.x(),
 				y : node.y(),
-				width : node.width(),
-				height : node.height(),
-				offsetX : node.width()/2,
-				offsetY : node.height()/2,
+				width : node.width() + padding*2,
+				height : node.height() + padding*2,
+				offsetX : (node.width() + padding*2)/2,
+				offsetY : (node.height() + padding*2)/2,
 				rotation : node.rotation(),
 			}
 			var circleProps = {
@@ -306,47 +186,52 @@ export default class TransformerComponent extends React.Component {
 			var circleProps = {};
 		}
 		return(
-			<Group
-				ref="layer"
-				{ ... transformProps }
-			>
-				<Circle { ... circleProps }
-					x={0}
-					y={0}
-					ref="topleft"
-					onDragMove={(e)=>this.transform(e, 'topleft')}
-					onMouseDown={()=>this.updateRef()}
+			<Group>
+				<Rect
+					stroke='#FE4A49'
+					listening={false}
+					{ ... transformProps }
 				/>
-				<Circle { ... circleProps }
-					x={transformProps.width}
-					y={0}
-					ref="topright"
-					onDragMove={(e)=>this.transform(e, 'topright')}
-					onMouseDown={()=>this.updateRef()}
-				/>
-				<Circle { ... circleProps }
-					x={0}
-					y={transformProps.height}
-					ref="bottomleft"
-					onDragMove={(e)=>this.transform(e, 'bottomleft')}
-					onMouseDown={()=>this.updateRef()}
-				/>
-				<Circle { ... circleProps }
-					x={transformProps.width}
-					y={transformProps.height}
-					ref="bottomright"
-					onDragMove={(e)=>this.transform(e, 'bottomright')}
-					onMouseDown={()=>this.updateRef()}
-				/>
-				<Circle { ... circleProps }
-					x={transformProps.width + 20}
-					y={transformProps.height / 2}
-					ref="rotater"
-					onDragMove={(e)=>this.rotate(e)}
-					onMouseDown={()=>this.updateRef()}
-				/>
-
-
+				<Group
+					ref="layer"
+					{ ... transformProps }
+				>
+					<Circle { ... circleProps }
+						x={0}
+						y={0}
+						ref="topleft"
+						onDragMove={(e)=>this.transform(e, 'topleft')}
+						onMouseDown={()=>this.updateRef()}
+					/>
+					<Circle { ... circleProps }
+						x={transformProps.width}
+						y={0}
+						ref="topright"
+						onDragMove={(e)=>this.transform(e, 'topright')}
+						onMouseDown={()=>this.updateRef()}
+					/>
+					<Circle { ... circleProps }
+						x={0}
+						y={transformProps.height}
+						ref="bottomleft"
+						onDragMove={(e)=>this.transform(e, 'bottomleft')}
+						onMouseDown={()=>this.updateRef()}
+					/>
+					<Circle { ... circleProps }
+						x={transformProps.width}
+						y={transformProps.height}
+						ref="bottomright"
+						onDragMove={(e)=>this.transform(e, 'bottomright')}
+						onMouseDown={()=>this.updateRef()}
+					/>
+					<Circle { ... circleProps }
+						x={transformProps.width + 20}
+						y={transformProps.height / 2}
+						ref="rotater"
+						onDragMove={(e)=>this.rotate(e)}
+						onMouseDown={()=>this.updateRef()}
+					/>
+				</Group>
 			</Group>
 		);
 	}

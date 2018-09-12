@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import UserStore from '../../stores/UserStore';
-import WallStore from '../../stores/WallStore';
-import WallActions from '../../actions/WallActions';
-import FWindowActions from '../../actions/FWindowActions';
-import '../styles.scss';
+import UserStore from '../../../stores/UserStore';
+import WallStore from '../../../stores/WallStore';
+import WallActions from '../../../actions/WallActions';
+import FWindowActions from '../../../actions/FWindowActions';
+import '../../styles.scss';
 
 export default class Save extends React.Component {
     constructor(props){
