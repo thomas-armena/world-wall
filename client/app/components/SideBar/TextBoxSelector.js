@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles.scss';
 import WallActions from '../../actions/WallActions';
 
-export default class Selector extends React.Component {
+export default class TextBoxSelector extends React.Component {
 
 	handleClick() {
 		WallActions.itemAdd({
@@ -18,7 +18,9 @@ export default class Selector extends React.Component {
 
 	render(){
 		return(
-			<div className="selector" onClick={this.handleClick} ></div>
+			<div className="selector" onClick={this.handleClick} >
+				TextBox
+			</div>
 
 		);
 	}

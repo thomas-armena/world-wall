@@ -1,7 +1,8 @@
 import React from 'react';
 import '../styles.scss';
 import SlideButton from './SlideButton';
-import Selector from './Selector';
+import TextBoxSelector from './TextBoxSelector';
+import ImageSelector from './ImageSelector';
 export default class SideBar extends React.Component {
 
     constructor(props) {
@@ -30,28 +31,8 @@ export default class SideBar extends React.Component {
                 <div className={'sidebar-items '+itemsclass}>
                     <div className='sidebar-content-items'>
                         <div className='header-items'>Items</div>
-                        <Selector />
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector></Selector>
-                        <Selector />
+                        <TextBoxSelector />
+                        <ImageSelector />
                     </div>
                     <div className="sidebar-ext">
                         <div className='slidebutton-items' onClick={()=>this.slideItems()} />

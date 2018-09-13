@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles.scss';
 import EditTextBox from './EditTextBox';
+import EditImageBox from './EditImageBox';
 import WallStore from '../../stores/WallStore';
 
 export default class EditorWindow extends React.Component {
@@ -26,6 +27,9 @@ export default class EditorWindow extends React.Component {
                 case 'TEXT_BOX':
                     this.setState({content:<EditTextBox/>})
                     break;
+                case 'IMAGE_BOX':
+                this.setState({content:<EditImageBox/>})
+                break;
                 default:
                     this.setState({content:<div/>})
                     break;

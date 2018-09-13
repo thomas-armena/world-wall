@@ -4,6 +4,7 @@ import { Group, Stage, Layer, } from 'react-konva';
 import WallActions from '../../actions/WallActions';
 import WallStore from '../../stores/WallStore';
 import TextBox from './Item/TextBox';
+import ImageBox from './Item/ImageBox';
 import TransformerComponent from './TransformerComponent';
 
 export default class Wall extends React.Component {
@@ -113,6 +114,17 @@ export default class Wall extends React.Component {
                     edit = {this.props.edit}
                 />;
                 break;
+            case 'IMAGE_BOX':
+                item = <ImageBox
+                    id = {itemData.id}
+                    src = {itemData.src}
+                    x = {itemData.x}
+                    y = {itemData.y}
+                    width = {itemData.width}
+                    height = {itemData.height}
+                    rotation = {itemData.rotation}
+                    edit = {this.props.edit}
+                />
             }
             itemsJSX.push(item);
         }
