@@ -1,6 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var Wall = require('../models/wall');
+const multer = require('multer');
+const uuidv4 = require('uuid/v4');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads');
+    },
+    filename: (req, file, cb) => {
+        const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+        cb(null, newFilename);
+    },
+});
+
+const upload = multer({ storage });
 
 router.post('/save', function(req, res, next){
     if(req.body.author && req.body.collaborators && req.body.items){
@@ -9,7 +24,7 @@ router.post('/save', function(req, res, next){
             collaborators: req.body.collaborators,
             wall: req.body.items,
         };
-       
+
         Wall.update({ 'wall.title': wallData.wall.title, author: wallData.author }, wallData, { upsert: true }, (err, wall) => {
             if(err){
                 return next(err);
@@ -28,6 +43,18 @@ router.post('/load', function(req, res, next){
             res.send(walls);
         });
     }
+});
+
+router.post('/imageupload', upload.single('test'), function(req, res, next){
+    console.log('image file:')
+    console.log(req.file.path);
+    res.send(req.file.path);
+});
+
+router.post('/imageget', function(req, res, next){
+    console.log(path.resolve(__dirname+'/../'+req.body.src));
+    //res.send(req.body);
+    res.sendFile(path.resolve(__dirname+'/../'+req.body.src));
 });
 
 module.exports = router;

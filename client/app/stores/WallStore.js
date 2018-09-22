@@ -1,6 +1,7 @@
 import ActionTypes from '../constants';
 import Dispatcher from '../dispatcher';
 import EventEmitter from 'events';
+import axios from 'axios';
 
 class WallStore extends EventEmitter {
 
@@ -77,6 +78,31 @@ class WallStore extends EventEmitter {
 
 	_loadWall(loadData){
 	  this.items = loadData;
+	  axios.defaults.withCredentials = true;
+
+	  //For each image item, retrieve the image from the server
+	  for(let key in this.items){
+		  if (this.items[key]['serverSrc']){ //check if the item has a server source
+			  axios.post('http://localhost:8000/imageget',{src:this.items[key]['serverSrc']},{responseType:'arraybuffer'})
+			  	.then(response => {
+					console.log(response);
+				    const arrayBufferView = new Uint8Array( response.data );
+				    const blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
+				    const urlCreator = window.URL || window.webkitURL;
+				    const imageUrl = urlCreator.createObjectURL( blob );
+
+					let image = new window.Image();
+			        image.src = imageUrl;
+			        image.onload = () => {
+						console.log(image)
+			            this.items[key].src = image;
+			            this.emit('UPDATE');
+			        }
+				})
+		  }
+	  }
+	  //axios.get('/imageupload',{src: })
+
 	  this.emit('UPDATE');
 	}
 

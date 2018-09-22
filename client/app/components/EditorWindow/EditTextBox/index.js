@@ -10,26 +10,29 @@ export default class EditTextBox extends React.Component {
         this.state = {
             text: WallStore.getItems()['item_'+WallStore.getSelectedId()].text
         }
+        this.handleUpdate = this.handleUpdate.bind(this)
     }
 
     componentDidMount(){
-        WallStore.on('UPDATE', ()=>this.handleUpdate());
+        WallStore.on('UPDATE', this.handleUpdate);
     }
 
     componentWillUnmount(){
-        WallStore.removeListener('UPDATE', ()=>this.handleUpdate());
+        WallStore.removeListener('UPDATE', this.handleUpdate);
     }
 
     handleUpdate(){
-        this.setState({
-            text: WallStore.getItems()['item_'+WallStore.getSelectedId()].text,
-        });
+        if(this.mounted)
+            this.setState({
+                text: WallStore.getItems()['item_'+WallStore.getSelectedId()].text,
+            });
     }
 
     handleChange(){
         const newText = this.refs.textbox.value;
         WallStore.items['item_'+WallStore.getSelectedId()].text = newText;
         WallStore.emit('UPDATE')
+
         this.setState({text: newText});
     }
 

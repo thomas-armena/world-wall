@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from './index';
-import { Rect, Image } from 'react-konva';
+import { Text, Rect, Image } from 'react-konva';
 
 export default class ImageBox extends React.Component {
     constructor(props){
@@ -32,7 +32,9 @@ export default class ImageBox extends React.Component {
                     fill='#E6E6EA'
                 />
                 <Image
-                    image={this.state.image}
+                    image={this.props.src}
+                    width={this.props.width}
+                    height={this.props.height}
                 />
             </Item>
         );

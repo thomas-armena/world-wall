@@ -13,6 +13,7 @@ export default class ImageSelector extends React.Component {
 			height: 100,
 			rotation: 0,
 			src: '',
+			serverSrc: '',
 		});
 	}
 

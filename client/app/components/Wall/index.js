@@ -104,6 +104,7 @@ export default class Wall extends React.Component {
             switch(itemData.itemType){
             case 'TEXT_BOX':
                 item = <TextBox
+                    key={i}
                     id = {itemData.id}
                     text = {itemData.text}
                     x = {itemData.x}
@@ -116,6 +117,7 @@ export default class Wall extends React.Component {
                 break;
             case 'IMAGE_BOX':
                 item = <ImageBox
+                    key={i}
                     id = {itemData.id}
                     src = {itemData.src}
                     x = {itemData.x}

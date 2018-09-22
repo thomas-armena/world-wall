@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../styles.scss';
-import WallStore from '../../../stores/WallStore'
+import WallStore from '../../../stores/WallStore';
+import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 
 export default class EditImageBox extends React.Component {
@@ -10,38 +12,62 @@ export default class EditImageBox extends React.Component {
         this.state = {
 
         }
+        this.onDrop = this.onDrop.bind(this);
     }
 
     componentDidMount(){
-        WallStore.on('UPDATE', ()=>this.handleUpdate());
+        WallStore.on('UPDATE', this.handleUpdate);
     }
 
     componentWillUnmount(){
-        WallStore.removeListener('UPDATE', ()=>this.handleUpdate());
+        WallStore.removeListener('UPDATE', this.handleUpdate);
     }
 
     handleUpdate(){
+        if(this.mounted){
 
+        }
     }
 
-    handleChange(){
-        var selectedFile = document.getElementById('imagedrop').files[0];
-        console.log(selectedFile);
+    onDrop(files){
+        var file = new FormData();
+
+        let image = new window.Image();
+        image.src = files[0].preview;
+        image.onload = () => {
+            WallStore.items['item_'+WallStore.getSelectedId()].src = image;
+            WallStore.emit('UPDATE');
+        }
+
+
+
+
+        file.append('test',files[0]);
+        axios.defaults.withCredentials = true;
+        axios.post('http://localhost:8000/imageupload',file,{'Content-Type': 'multipart/form-data'})
+            .then(function (response) {
+                console.log(response)
+                WallStore.items['item_'+WallStore.getSelectedId()].serverSrc = response.data;
+                console.log(WallStore.items['item_'+WallStore.getSelectedId()].serverSrc);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
     render(){
         return(
             <div>
                 Image Box
-                <form action="/action_page.php">
-                    <input
-                        type="file"
-                        name="pic"
-                        accept="image/*"
-                        id='imagedrop'
-                        onChange={()=>this.handleChange()}
-                    />
-                </form>
+                <Dropzone
+                    onDrop={files => this.onDrop(files)}
+                    styles={{
+                        width:'100%',
+                        height:'100%',
+                    }}
+                >
+                    <div> Drop images here </div>
+                </Dropzone>
             </div>
         )
     }

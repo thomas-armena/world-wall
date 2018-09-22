@@ -28,8 +28,8 @@ export default class EditorWindow extends React.Component {
                     this.setState({content:<EditTextBox/>})
                     break;
                 case 'IMAGE_BOX':
-                this.setState({content:<EditImageBox/>})
-                break;
+                    this.setState({content:<EditImageBox/>})
+                    break;
                 default:
                     this.setState({content:<div/>})
                     break;
