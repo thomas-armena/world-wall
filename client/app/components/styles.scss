@@ -1,11 +1,11 @@
-$font-stack:   						Helvetica, sans-serif;
+$font-stack:   				Helvetica, sans-serif;
 
-$primary-color: 					#FE4A49;
-$secondary-color: 				#2AB7CA;
+$primary-color: 			#FE4A49;
+$secondary-color: 			#2AB7CA;
 $secondary-light-color: 	#C4EBF0;
-$tertiary-color: 					#FED766;
-$bg-light-color:					#E6E6EA;
-$bg-lighter-color:				#F4F4F8;
+$tertiary-color: 			#FED766;
+$bg-light-color:			#E6E6EA;
+$bg-lighter-color:			#F4F4F8;
 
 /*
 $primary-color: 					#272838;
@@ -40,6 +40,8 @@ body {
 	width: 100%;
 	position: absolute;
 	overflow-y: scroll;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+
 }
 
 .sidebar-content-project {
@@ -49,11 +51,14 @@ body {
 	width: 100%;
 	position: absolute;
 	overflow-y: scroll;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+
 }
 
 .sidebar-ext {
-    z-index: 2;
+    z-index: 4;
 	overflow-x: visible;
+
 }
 
 .sidebar-items {
@@ -102,6 +107,8 @@ body {
 	z-index: 1;
     border-radius: 0px 20px 20px 0px;
     cursor: pointer;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+
 }
 
 .slidebutton-project {
@@ -114,6 +121,8 @@ body {
 	z-index: 1;
     border-radius: 0px 20px 20px 0px;
     cursor: pointer;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+
 }
 
 html, body, #app, #app>div {
@@ -126,10 +135,11 @@ html, body, #app, #app>div {
 
 .selector {
 	margin: 10%;
-	width: 80%;
-	height: 100px;
-	background-color: $bg-lighter-color;
+	position: b;
+}
 
+.selector:hover {
+	cursor: dragging;
 }
 
 .header-items {
@@ -209,6 +219,8 @@ html, body, #app, #app>div {
     border-radius: 0px 0px 0px 10px;
     text-align: center;
     z-index: 4;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+
 }
 
 .menu-content {
@@ -256,6 +268,8 @@ html, body, #app, #app>div {
 	width: 100%;
 	position: fixed;
 	left: 0px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+
 }
 
 .nav-bar ul {
@@ -373,15 +387,73 @@ html, body, #app, #app>div {
 
 .editor-window {
 	position: absolute;
-	right: 0;
-	bottom: 0;
+	bottom: 0px;
 	width: 300px;
 	height: 300px;
-	padding: 10px;
 	background-color: $bg-light-color;
+	border-radius: 10px 0px 0px 0px;
+	transition: right 0.5s;
+}
+
+.editor-in {
+	right: 0px;
+}
+
+.editor-out {
+	right: -300px;
+}
+
+@keyframes editor-in {
+	from {right:-300px;}
+	to {right:0px;}
+}
+
+@keyframes editor-out {
+	from {right:0px;}
+	to {right:-300px;}
+}
+
+.editor-header {
+	display: block;
+	padding: 5px;
+	color: $bg-lighter-color;
+    background-color: $tertiary-color;
+    text-align: center;
+	border-radius: 10px 0px 0px 0px;
+}
+
+.editor-content {
+	padding: 20px;
 }
 
 .editor-textarea {
 	width: 100%;
 	height: 150px;
+}
+
+.header-textarea {
+    display: block;
+    padding: 5px;
+    color: $bg-lighter-color;
+    background-color: $primary-color;
+    text-align: center;
+}
+
+.drag-layer {
+	pointer-events: none;
+	z-index: 1000;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+}
+
+
+
+.visible {
+	visibility: visible;
+}
+
+.hidden {
+	visibility: hidden;
 }

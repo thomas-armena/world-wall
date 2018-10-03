@@ -37,7 +37,7 @@ export default class LoadOptions extends React.Component {
             <div>
                 {
                     this.state.loadOptions.map(load => (
-                        <div className="loadbtn" onClick={()=>this.handleClick(load.wall)}>{load.wall.title}</div>
+                        <div key={load.wall.title}className="loadbtn" onClick={()=>this.handleClick(load.wall)}>{load.wall.title}</div>
                     ))
                 }
             </div>

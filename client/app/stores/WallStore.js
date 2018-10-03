@@ -10,8 +10,11 @@ class WallStore extends EventEmitter {
 		Dispatcher.register(this.registerToAction.bind(this));
 		this.items = {title: 'New Wall', nextId: 0,};
         this.loadedItems = [];
+		this.storedItem = {};
 		this.selectedId = null;
 		this.scale = 1;
+		this.dragStartX = 0;
+		this.dragStartY = 0;
 		this.x = 0;
 		this.y = 0;
 	}
@@ -22,27 +25,30 @@ class WallStore extends EventEmitter {
 				this._addItem(action.payload);
 				this._selectItem(this.items.nextId-1);
 				break;
+			case ActionTypes.ITEM_DRAG_START:
+				this._storeItem(action.payload);
+				break;
 			case ActionTypes.ITEM_REMOVE:
 				this._removeItem(action.payload);
 				break;
 			case ActionTypes.ITEM_MOVE:
 				this._moveItem(action.payload.id,
-					action.payload.x,
-					action.payload.y,
-					action.payload.width,
-					action.payload.height,
-					action.payload.rotation);
+				action.payload.x,
+				action.payload.y,
+				action.payload.width,
+				action.payload.height,
+				action.payload.rotation);
 				break;
 			case ActionTypes.ITEM_CLICK:
 				this._selectItem(action.payload);
                 break;
-      case ActionTypes.WALL_LOAD:
-          this._loadWall(action.payload);
-          this._selectItem(null);
-          break;
-      case ActionTypes.WALL_RENAME:
-          this._renameWall(action.payload);
-          break;
+		    case ActionTypes.WALL_LOAD:
+		        this._loadWall(action.payload);
+		        this._selectItem(null);
+		        break;
+		    case ActionTypes.WALL_RENAME:
+		        this._renameWall(action.payload);
+          		break;
 
 		}
 	}
@@ -53,12 +59,19 @@ class WallStore extends EventEmitter {
 		this.items["item_"+this.items.nextId].id = this.items.nextId
 		this.items.nextId++;
 		this.emit('UPDATE');
+		console.log('ADDITEM')
+	}
+
+	_storeItem(item){
+		this.storedItem = item;
+		this.emit('DRAGSTART');
 	}
 
 	_removeItem(index){
 		window.alert('rm item');
 		//place remove logic here
 		this.emit('UPDATE');
+		console.log('REMOVEITEM')
 	}
 
 	_moveItem(id, x, y, width, height, rotation){
@@ -68,12 +81,14 @@ class WallStore extends EventEmitter {
 		this.items["item_"+id].height = height;
 		this.items["item_"+id].rotation = rotation;
 		this.emit('UPDATE');
+		console.log('MOVEITEM')
 	}
 
 
 	_selectItem(id){
 		this.selectedId = id;
 		this.emit('UPDATE');
+		console.log('SELECT')
 	}
 
 	_loadWall(loadData){
@@ -104,11 +119,13 @@ class WallStore extends EventEmitter {
 	  //axios.get('/imageupload',{src: })
 
 	  this.emit('UPDATE');
+	  console.log('LOAD')
 	}
 
 	_renameWall(name){
 	  this.items.title = name;
 	  this.emit('UPDATE');
+	  console.log('RENAME')
 	}
 
 	getItems(){
@@ -138,6 +155,10 @@ class WallStore extends EventEmitter {
 
 	getLoadData(){
 	  return this.loadedItems;
+	}
+
+	getStoredItem(){
+		return this.storedItem;
 	}
 
 }

@@ -24,9 +24,7 @@ export default class EditImageBox extends React.Component {
     }
 
     handleUpdate(){
-        if(this.mounted){
 
-        }
     }
 
     onDrop(files){

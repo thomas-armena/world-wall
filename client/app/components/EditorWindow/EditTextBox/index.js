@@ -22,10 +22,11 @@ export default class EditTextBox extends React.Component {
     }
 
     handleUpdate(){
-        if(this.mounted)
-            this.setState({
-                text: WallStore.getItems()['item_'+WallStore.getSelectedId()].text,
-            });
+
+        this.setState({
+            text: WallStore.getItems()['item_'+WallStore.getSelectedId()].text,
+        });
+
     }
 
     handleChange(){
@@ -39,7 +40,6 @@ export default class EditTextBox extends React.Component {
     render(){
         return(
             <div>
-                TextBox
                 <textarea className='editor-textarea'
                     value={this.state.text}
                     ref='textbox'

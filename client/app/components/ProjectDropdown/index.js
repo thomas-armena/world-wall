@@ -14,14 +14,15 @@ export default class ProjectDropdown extends React.Component {
             title: WallStore.items.title,
             activated: false,
         };
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount(){
-        WallStore.on('UPDATE', ()=>this.handleUpdate());
+        WallStore.on('UPDATE', this.handleUpdate);
     }
 
     componentWillUnmount(){
-        WallStore.removeListener('UPDATE', ()=>this.handleUpdate());
+        WallStore.removeListener('UPDATE', this.handleUpdate);
     }
 
     handleUpdate(){

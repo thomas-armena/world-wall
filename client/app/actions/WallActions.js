@@ -2,10 +2,17 @@ import Dispatcher from '../dispatcher';
 import ActionTypes from '../constants';
 
 class WallActions {
-	
+
 	itemAdd(item) {
 		Dispatcher.dispatch({
 			actionType: ActionTypes.ITEM_ADD,
+			payload: item,
+		});
+	}
+
+	itemDragStart(item) {
+		Dispatcher.dispatch({
+			actionType: ActionTypes.ITEM_DRAG_START,
 			payload: item,
 		});
 	}
@@ -44,6 +51,7 @@ class WallActions {
             payload: name,
         });
     }
+
 }
 
 export default new WallActions();

@@ -7,6 +7,7 @@ import Register from './Register';
 import NavBar from './NavBar';
 import FocusWindow from './FocusWindow';
 import EditorWindow from './EditorWindow';
+import DragLayer from './DragLayer';
 import './styles.scss';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -14,7 +15,7 @@ import UserActions from '../actions/UserActions';
 
 
 export default class App extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
 
         //login when application starts
         axios.defaults.withCredentials = true;
@@ -35,6 +36,7 @@ export default class App extends React.Component {
                 <Wall edit={true} />
                 <ProjectDropdown />
                 <EditorWindow />
+                <DragLayer />
             </div>
         );
 
@@ -67,7 +69,7 @@ export default class App extends React.Component {
         return (
             <Router>
                 <div>
-                    <NavBar >
+                    <NavBar>
                         <h1> world wall </h1>
                         <ul>
                             <li><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
@@ -77,7 +79,7 @@ export default class App extends React.Component {
                             <li><MenuLink to="/login" label="Login" /></li>
                             <li><MenuLink to="/register" label="Register" /></li>
                         </ul>
-                    </ NavBar>
+                    </NavBar>
                     <div id="content-wrapper">
                         <Route exact path="/" component={Home} />
                         <Route path="/create" component={Editor} />
@@ -87,6 +89,7 @@ export default class App extends React.Component {
                         <Route path="/register" component={Register} />
                     </div>
                     <FocusWindow />
+
                 </div>
             </Router>
         );

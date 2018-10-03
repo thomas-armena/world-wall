@@ -15,46 +15,47 @@ export default class Wall extends React.Component {
             stageHeight: 100,
             stageWidth: 100,
             canDrag: true,
+            draggingNew: true,
             items: {},
             selectedId: null,
         };
         this.mouseOverStage = false;
+        this.onUpdate = this.onUpdate.bind(this);
+        this.handleDragStart = this.handleDragStart.bind(this);
     }
 
     componentDidMount() {
         this.updateSize();
         window.addEventListener('resize', ()=>this.updateSize());
         window.addEventListener('wheel', (e)=>this.zoomStage(e));
-        WallStore.on('UPDATE', ()=>this.onUpdate());
+        WallStore.on('UPDATE', this.onUpdate);
+        WallStore.on('DRAGSTART', this.handleDragStart);
         WallStore.emit('UPDATE');
-        /*
-        var stageInst = this.refs.stage.getStage();
-        stageInst.scale(WallStore.scale);
-        stageInst.x(WallStore.x);
-        stageInst.y(WallStore.y)
-        */
     }
 
 
     componentWillUnmount() {
         window.removeEventListener('wheel', (e)=>this.zoomStage(e));
         window.removeEventListener('resize', ()=>this.updateSize());
-        WallStore.removeListener('UPDATE', ()=>this.onUpdate());
-        /*
-        var stageInst = this.refs.stage.getStage();
-        WallStore.scale = stageInst.scale();
-        WallStore.x = stageInst.position().x;
-        WallStore.y = stageInst.position().y;
-        */
-
+        WallStore.removeListener('UPDATE', this.onUpdate);
+        WallStore.removeListener('DRAGSTART', this.handleDragStart);
     }
 
     onUpdate() {
         this.setState({
           items: WallStore.getItems(),
-          selectedId: WallStore.getSelectedId()
+          selectedId: WallStore.getSelectedId(),
+          draggingNew: false
         });
     }
+
+    handleDragStart(){
+        console.log(WallStore.getStoredItem());
+
+        this.setState({draggingNew:true});
+
+    }
+
 
     updateSize() {
         const width = window.innerWidth;
@@ -88,19 +89,51 @@ export default class Wall extends React.Component {
         }
     }
 
-    handleClick(e) {
+    test() {
+        let item = WallStore.getStoredItem();
+        var stage = this.refs.stage.getStage();
+        console.log(stage.pointerPos);
+        WallActions.itemAdd(item)
+    }
 
-        if(e.target == this.refs.stage.getStage())
-            WallActions.itemClick(null);
+    /*
+    handleClick(e) {
+        if(this.state.draggingNew){
+            var stage = this.refs.stage.getStage();
+            const mouseX = stage.getPointerPosition().x / WallStore.scale - stage.x() / WallStore.scale;
+			const mouseY = stage.getPointerPosition().y / WallStore.scale - stage.y() / WallStore.scale;
+            const item = WallStore.getStoredItem();
+            item.x = mouseX;
+            item.y = mouseY;
+            WallActions.itemAdd(item);
+
+        } else {
+            if(e.target == this.refs.stage.getStage())
+                WallActions.itemClick(null);
+        }
+
 
     }
+    */
 
 
     render(){
+        console.log(this.state.draggingNew)
         let itemsJSX = [];
         for (var i in this.state.items){
             const itemData = this.state.items[i];
             let item = null;
+            if (itemData['mouse']){
+                var stage = this.refs.stage.getStage();
+                const mouseX = itemData.mouse.x / WallStore.scale - stage.x() / WallStore.scale;
+    			const mouseY = itemData.mouse.y / WallStore.scale - stage.y() / WallStore.scale;
+                itemData.x = mouseX;
+                itemData.y = mouseY;
+                WallStore.items['item_'+itemData.id].x = itemData.x;
+                WallStore.items['item_'+itemData.id].y = itemData.y;
+                itemData.mouse = null;
+
+            }
             switch(itemData.itemType){
             case 'TEXT_BOX':
                 item = <TextBox
@@ -142,9 +175,10 @@ export default class Wall extends React.Component {
                 <Stage width={this.state.stageWidth}
                     height={this.state.stageHeight}
                     draggable={this.state.canDrag}
+                    onDragEnd={this.handleDrop}
                     ref="stage"
                     onClick={(e)=>this.handleClick(e)}
-
+                    id="stage"
                 >
                     <Layer>
                         {itemsJSX}

@@ -17,20 +17,24 @@ export default class TransformerComponent extends React.Component {
 		this.yRef = 0;
 		this.xClickRef = 0;
 		this.yClickRef = 0;
+		this.updateCallback = this.updateCallback.bind(this);
+		this.mountedCallback = this.mountedCallback.bind(this);
+		this.tstartCallback = this.tstartCallback.bind(this);
+		this.tendCallback = this.tendCallback.bind(this);
 	}
 
 	componentDidMount(){
-		WallStore.on('UPDATE', ()=>this.updateCallback());
-		WallStore.on('MOUNTED', ()=>this.mountedCallback());
-		WallStore.on('TRANSFORM_START', ()=>this.tstartCallback());
-		WallStore.on('TRANSFORM_END', ()=>this.tendCallback());
+		WallStore.on('UPDATE', this.updateCallback);
+		WallStore.on('MOUNTED', this.mountedCallback);
+		WallStore.on('TRANSFORM_START', this.tstartCallback);
+		WallStore.on('TRANSFORM_END', this.tendCallback);
 	}
 
 	componentWillUnmount(){
-		WallStore.removeListener('UPDATE', ()=>this.updateCallback());
-		WallStore.removeListener('MOUNTED', ()=>this.mountedCallback());
-		WallStore.removeListener('TRANSFORM_START', ()=>this.tstartCallback());
-		WallStore.removeListener('TRANSFORM_END', ()=>this.tendCallback());
+		WallStore.removeListener('UPDATE', this.updateCallback);
+		WallStore.removeListener('MOUNTED', this.mountedCallback);
+		WallStore.removeListener('TRANSFORM_START', this.tstartCallback);
+		WallStore.removeListener('TRANSFORM_END', this.tendCallback);
 	}
 
 	updateCallback(){
