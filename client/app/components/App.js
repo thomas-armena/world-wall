@@ -12,9 +12,24 @@ import './styles.scss';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import UserActions from '../actions/UserActions';
+import UserStore from '../stores/UserStore';
+import FWindowActions from '../actions/FWindowActions';
 
 
 export default class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: null,
+            loginShow: false,
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleDropDown = this.handleDropDown.bind(this);
+        this.handleSignOut = this.handleSignOut.bind(this);
+    }
+
     componentDidMount() {
 
         //login when application starts
@@ -24,6 +39,38 @@ export default class App extends React.Component {
                 UserActions.userLogin(response.data);
             })
             .catch(error => {
+                console.log(error);
+            });
+
+        UserStore.on('CHANGE',this.handleChange);
+    }
+
+    componentWillUnmount() {
+        UserStore.removeListener('CHANGE',this.handleChange);
+    }
+
+    handleChange(){
+        this.setState({user:UserStore.getUser()});
+    }
+
+    handleLoginClick(){
+        FWindowActions.fWindowContent('LOGIN');
+        FWindowActions.fWindowShow();
+    }
+
+    handleDropDown(){
+        this.setState({loginShow:!this.state.loginShow});
+    }
+
+    handleSignOut(){
+        axios.defaults.withCredentials = true;
+        axios.get('http://localhost:8000/logout')
+            .then(response => {
+                console.log(response);
+                UserActions.userLogout();
+                this.setState({loginShow:false});
+            })
+            .catch(error=>{
                 console.log(error);
             });
     }
@@ -66,20 +113,48 @@ export default class App extends React.Component {
                 )}
             />
         );
+
+
+
+        let loginArea;
+        if(this.state.user != null){
+            loginArea = (
+                <div style={{display:'block'}}>
+                    <li className='link right' onClick={this.handleDropDown}>{this.state.user.username}</li>
+                </div>
+            );
+        } else {
+            loginArea = (
+                <div>
+                    <li className='link right' onClick={this.handleLoginClick}>Sign In</li>
+                    <li className='link right' onClick={this.handleLoginClick}>Register</li>
+                </div>
+            );
+        }
+        const dropDownToggle = this.state.loginShow ? 'show-drop' : 'hide-drop'
+        const UserDropDown = (
+            <div className={'user-dropdown '+dropDownToggle}>
+                <div className='item'>Profile</div>
+                <div className='item' onClick={this.handleSignOut}>Signout</div>
+            </div>
+        );
+
+
         return (
             <Router>
                 <div>
                     <NavBar>
                         <h1> world wall </h1>
                         <ul>
-                            <li><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
-                            <li><MenuLink to="/create" label="Create" /></li>
-                            <li><MenuLink to="/view" label="View" /></li>
-                            <li><MenuLink to="/about" label="About" /></li>
-                            <li><MenuLink to="/login" label="Login" /></li>
-                            <li><MenuLink to="/register" label="Register" /></li>
+                            <li className='left'><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
+                            <li className='left'><MenuLink to="/create" label="Create" /></li>
+                            <li className='left'><MenuLink to="/view" label="View" /></li>
+                        </ul>
+                        <ul>
+                            {loginArea}
                         </ul>
                     </NavBar>
+                    {UserDropDown}
                     <div id="content-wrapper">
                         <Route exact path="/" component={Home} />
                         <Route path="/create" component={Editor} />

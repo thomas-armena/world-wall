@@ -96,25 +96,12 @@ export default class Wall extends React.Component {
         WallActions.itemAdd(item)
     }
 
-    /*
+
     handleClick(e) {
-        if(this.state.draggingNew){
-            var stage = this.refs.stage.getStage();
-            const mouseX = stage.getPointerPosition().x / WallStore.scale - stage.x() / WallStore.scale;
-			const mouseY = stage.getPointerPosition().y / WallStore.scale - stage.y() / WallStore.scale;
-            const item = WallStore.getStoredItem();
-            item.x = mouseX;
-            item.y = mouseY;
-            WallActions.itemAdd(item);
-
-        } else {
-            if(e.target == this.refs.stage.getStage())
-                WallActions.itemClick(null);
-        }
-
-
+        if(e.target == this.refs.stage.getStage())
+            WallActions.itemClick(null);
     }
-    */
+
 
 
     render(){

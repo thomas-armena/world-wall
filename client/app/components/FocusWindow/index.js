@@ -4,6 +4,7 @@ import FWindowStore from '../../stores/FWindowStore';
 import FWindowActions from '../../actions/FWindowActions';
 import LoadOptions from './LoadOptions';
 import Save from './Save';
+import Login from './Login';
 
 export default class FocusWindow extends React.Component {
     constructor(props){
@@ -40,6 +41,8 @@ export default class FocusWindow extends React.Component {
             content = < LoadOptions />;
         } else if(this.state.content == 'SAVE'){
             content = < Save />;
+        } else if(this.state.content == 'LOGIN'){
+            content = < Login />;
         }
 
         console.log(this.state.content);
