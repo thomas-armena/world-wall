@@ -31,6 +31,11 @@ export default class Wall extends React.Component {
         WallStore.on('UPDATE', this.onUpdate);
         WallStore.on('DRAGSTART', this.handleDragStart);
         WallStore.emit('UPDATE');
+
+        //update stage positions
+        var stageInst = this.refs.stage.getStage();
+        stageInst.scale({ x: WallStore.scale, y: WallStore.scale });
+        stageInst.position({ x: WallStore.x, y: WallStore.y }) ;
     }
 
 
@@ -39,6 +44,11 @@ export default class Wall extends React.Component {
         window.removeEventListener('resize', ()=>this.updateSize());
         WallStore.removeListener('UPDATE', this.onUpdate);
         WallStore.removeListener('DRAGSTART', this.handleDragStart);
+
+        //Save stage positions
+        var stageInst = this.refs.stage.getStage();
+        WallStore.x = stageInst.position().x;
+        WallStore.y = stageInst.position().y;
     }
 
     onUpdate() {
@@ -105,7 +115,6 @@ export default class Wall extends React.Component {
 
 
     render(){
-        console.log(this.state.draggingNew)
         let itemsJSX = [];
         for (var i in this.state.items){
             const itemData = this.state.items[i];

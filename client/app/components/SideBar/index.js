@@ -1,9 +1,13 @@
 import React from 'react';
 import '../styles.scss';
 import SlideButton from './SlideButton';
-import TextBoxSelector from './TextBoxSelector';
-import ImageSelector from './ImageSelector';
+import Selector from './Selector';
 import WallStore from '../../stores/WallStore';
+import SVGInline from "react-svg-inline";
+import ImageSVG from '../../assets/Image_Icon.svg';
+import TextSVG from '../../assets/Text_Icon.svg';
+import ItemSVG from '../../assets/Item.svg';
+
 export default class SideBar extends React.Component {
 
     constructor(props) {
@@ -27,8 +31,6 @@ export default class SideBar extends React.Component {
         this.setState({outItems: false});
     }
 
-
-
     slideItems() {
         this.setState({outItems: true});
     }
@@ -47,6 +49,25 @@ export default class SideBar extends React.Component {
 
 
     render() {
+        const imageBoxItem = {
+			itemType: 'IMAGE_BOX',
+			x: 400,
+			y: 150,
+			width: 100,
+			height: 100,
+			rotation: 0,
+			src: '',
+			serverSrc: '',
+		};
+        const textBoxItem = {
+			itemType: 'TEXT_BOX',
+			x: 400,
+			y: 150,
+			width: 100,
+			height: 100,
+			rotation: 0,
+			text: "Insert text here",
+        }
         let itemsclass = this.state.outItems? 'sidebar-out' : 'sidebar-in';
         let projectclass = this.state.outProject? 'sidebar-out' : 'sidebar-in';
         return (
@@ -58,11 +79,15 @@ export default class SideBar extends React.Component {
                 >
                     <div className='sidebar-content-items'>
                         <div className='header-items'>Items</div>
-                        <TextBoxSelector />
-                        <ImageSelector />
+                        <div className='items'>
+                            <Selector name='Image' item={imageBoxItem} svg={ImageSVG}/>
+                            <Selector name='Text' item={textBoxItem} svg={TextSVG}/>
+                        </div>
                     </div>
                     <div className="sidebar-ext">
-                        <div className='slidebutton-items' />
+                        <div className='slidebutton-items' >
+                            <i class="material-icons slide-icon">work</i>
+                        </div>
                     </div>
                 </div>
                 <div className={'sidebar-project '+projectclass}
@@ -76,7 +101,9 @@ export default class SideBar extends React.Component {
                         <div className='option'>Rename</div>
                     </div>
                     <div className="sidebar-ext">
-                        <div className='slidebutton-project' />
+                        <div className='slidebutton-project'>
+                            <i class="material-icons slide-icon">settings</i>
+                        </div>
                     </div>
                 </div>
             </div>

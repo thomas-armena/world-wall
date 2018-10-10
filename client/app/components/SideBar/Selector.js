@@ -2,11 +2,10 @@ import React from 'react';
 import '../styles.scss';
 import WallActions from '../../actions/WallActions';
 import WallStore from '../../stores/WallStore';
-import ImageSVG from '../../assets/Image_Icon.svg';
 import SVGInline from "react-svg-inline";
 
 
-export default class ImageSelector extends React.Component {
+export default class Selector extends React.Component {
 
 	constructor(props){
 		super(props);
@@ -35,32 +34,14 @@ export default class ImageSelector extends React.Component {
 	}
 
 	handleMouseUp() {
-		WallActions.itemAdd({
-			itemType: 'IMAGE_BOX',
-			x: 400,
-			y: 150,
-			width: 100,
-			height: 100,
-			rotation: 0,
-			src: '',
-			serverSrc: '',
-		});
+		WallActions.itemAdd(this.props.item);
 	}
 
 	handleMouseDown(e) {
 		e.preventDefault();
 		WallStore.dragStartX = e.clientX;
 		WallStore.dragStartY = e.clientY;
-		WallActions.itemDragStart({
-			itemType: 'IMAGE_BOX',
-			x: 400,
-			y: 150,
-			width: 100,
-			height: 100,
-			rotation: 0,
-			src: '',
-			serverSrc: '',
-		});
+		WallActions.itemDragStart(this.props.item);
 	}
 
 	render(){
@@ -68,9 +49,8 @@ export default class ImageSelector extends React.Component {
 			<div className="selector" onMouseUp={this.handleMouseUp}
 				onMouseDown={(e)=>this.handleMouseDown(e)}
 			>
-				<SVGInline id='1' svg={ImageSVG} width='100' height='100'
-					style={{display: this.state.visible ? 'block' : 'none'}}
-				/>
+				<SVGInline id='1' svg={this.props.svg} width='150' height='150'/>
+				<div>{this.props.name}</div>
 			</div>
 
 		);

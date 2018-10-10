@@ -5,6 +5,7 @@ import Wall from './Wall';
 import Login from './Login';
 import Register from './Register';
 import NavBar from './NavBar';
+import Home from './Home';
 import FocusWindow from './FocusWindow';
 import EditorWindow from './EditorWindow';
 import DragLayer from './DragLayer';
@@ -14,6 +15,7 @@ import axios from 'axios';
 import UserActions from '../actions/UserActions';
 import UserStore from '../stores/UserStore';
 import FWindowActions from '../actions/FWindowActions';
+
 
 
 export default class App extends React.Component {
@@ -93,11 +95,6 @@ export default class App extends React.Component {
             </div>
         );
 
-        const Home = () => (
-            <div>Home</div>
-        );
-
-
         const About = () => (
             <div>About</div>
         );
@@ -114,13 +111,24 @@ export default class App extends React.Component {
             />
         );
 
-
-
         let loginArea;
         if(this.state.user != null){
             loginArea = (
                 <div style={{display:'block'}}>
-                    <li className='link right' onClick={this.handleDropDown}>{this.state.user.username}</li>
+                    <li className='link right' onClick={this.handleDropDown}>
+
+                        {this.state.user.username}
+                    </li>
+                    {/*
+                    <i className="material-icons right"
+                        style={{
+                            color: 'white',
+                            top: '5px',
+                        }}
+                    >
+                        account_circle
+                    </i>
+                    */}
                 </div>
             );
         } else {
@@ -139,12 +147,10 @@ export default class App extends React.Component {
             </div>
         );
 
-
         return (
             <Router>
                 <div>
                     <NavBar>
-                        <h1> world wall </h1>
                         <ul>
                             <li className='left'><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
                             <li className='left'><MenuLink to="/create" label="Create" /></li>
@@ -168,6 +174,5 @@ export default class App extends React.Component {
                 </div>
             </Router>
         );
-
     }
 }

@@ -2,13 +2,17 @@ import React from 'react';
 import WallStore from '../../stores/WallStore';
 import WallActions from '../../actions/WallActions';
 import ImageSVG from '../../assets/Image_Icon.svg';
+import TextSVG from '../../assets/Text_Icon.svg';
 import SVGInline from "react-svg-inline";
+
+
+
 
 const Icon = (props)=>{
     return (
         <SVGInline
             id='2'
-            svg={ImageSVG}
+            svg={props.svg}
             width='110'
             height='110'
             style={{
@@ -65,7 +69,7 @@ export default class DragLayer extends React.Component {
         console.log('move')
         this.setState({
             x: e.clientX-50,
-            y: e.clientY-30-50,
+            y: e.clientY-40-50,
         })
     }
 
@@ -73,7 +77,7 @@ export default class DragLayer extends React.Component {
         const item = WallStore.getStoredItem();
         item['mouse'] = {
             x: e.clientX,
-            y: e.clientY-30,
+            y: e.clientY-40,
         }
         console.log(e.clientX)
         WallActions.itemAdd(item);
@@ -83,10 +87,16 @@ export default class DragLayer extends React.Component {
     render(){
         let iconToggle;
         let dragOverlay;
+        let svg;
+        if(WallStore.getStoredItem().itemType == 'IMAGE_BOX'){
+            svg = ImageSVG;
+        } else if (WallStore.getStoredItem().itemType == 'TEXT_BOX'){
+            svg = TextSVG;
+        }
         if(this.state.dragging){
             iconToggle = (
-                <div>
-                    <Icon x={this.state.x} y={this.state.y}/>
+                <div >
+                    <Icon svg={svg} x={this.state.x} y={this.state.y}/>
                 </div>
             );
             dragOverlay = (
@@ -95,7 +105,8 @@ export default class DragLayer extends React.Component {
                         position: 'absolute',
                         width: '100%',
                         height: '100%',
-                        cursor: 'grabbing'
+                        cursor: 'grabbing',
+                        zIndex: '100',
                     }}
                     onMouseMove={(e)=>this.handleMouseMove(e)}
                     onMouseUp={(e)=>this.handleMouseUp(e)}
@@ -114,7 +125,4 @@ export default class DragLayer extends React.Component {
             </div>
         );
     }
-
-
-
 }
