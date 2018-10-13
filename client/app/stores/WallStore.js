@@ -98,7 +98,7 @@ class WallStore extends EventEmitter {
 	  //For each image item, retrieve the image from the server
 	  for(let key in this.items){
 		  if (this.items[key]['serverSrc']){ //check if the item has a server source
-			  axios.post('http://localhost:8000/imageget',{src:this.items[key]['serverSrc']},{responseType:'arraybuffer'})
+			  axios.post(process.env.IMAGE_GET,{src:this.items[key]['serverSrc']},{responseType:'arraybuffer'})
 			  	.then(response => {
 					console.log(response);
 				    const arrayBufferView = new Uint8Array( response.data );
