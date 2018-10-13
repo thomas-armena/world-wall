@@ -86,7 +86,7 @@ export default class SideBar extends React.Component {
                     </div>
                     <div className="sidebar-ext">
                         <div className='slidebutton-items' >
-                            <i class="material-icons slide-icon">work</i>
+                            <i className="material-icons slide-icon">work</i>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ export default class SideBar extends React.Component {
                     </div>
                     <div className="sidebar-ext">
                         <div className='slidebutton-project'>
-                            <i class="material-icons slide-icon">settings</i>
+                            <i className="material-icons slide-icon">settings</i>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import FWindowActions from '../../actions/FWindowActions';
 import LoadOptions from './LoadOptions';
 import Save from './Save';
 import Login from './Login';
+import Register from './Register';
 
 export default class FocusWindow extends React.Component {
     constructor(props){
@@ -43,6 +44,8 @@ export default class FocusWindow extends React.Component {
             content = < Save />;
         } else if(this.state.content == 'LOGIN'){
             content = < Login />;
+        } else if(this.state.content == 'REGISTER'){
+            content = < Register />;
         }
 
         console.log(this.state.content);

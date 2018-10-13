@@ -21,16 +21,16 @@ export default class Login extends React.Component {
 	}
 
 	componentWillUnmount() {
-		UserStore.removeListener('CHANGE', this.callback); 
+		UserStore.removeListener('CHANGE', this.callback);
 	}
-	
+
 	submit() {
 		var email = document.getElementById('email').value;
 		var password = document.getElementById('password').value;
 		axios.defaults.withCredentials = true;
 
 		//Submit a login request to server
-		axios.post('http://localhost:8000/', {
+		axios.post(process.env.USER_REGISTER, {
 			logemail: email,
 			logpassword: password,
 		})
@@ -71,8 +71,8 @@ export default class Login extends React.Component {
 					<br />
 					Password: <input type="text" id="password" />
 					<br />
-					<button type="button" onClick={()=>this.submit()}>Submit</button>						
-					<button type="button" onClick={()=>this.logout()}>Logout</button>						
+					<button type="button" onClick={()=>this.submit()}>Submit</button>
+					<button type="button" onClick={()=>this.logout()}>Logout</button>
 					<br />
 					<div>{message}</div>
 				</div>

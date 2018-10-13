@@ -544,7 +544,7 @@ __________________________________ */
 
 }
 
-.home-login-content label {
+label {
 	text-align: center;
 }
 
@@ -558,4 +558,18 @@ __________________________________ */
 .home-splash-content {
 	height: 100%;
 	overflow: scroll;
+}
+
+.mid {
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+}
+
+.focuswindow-content {
+	position: absolute;
+    width: 100%;
+    top: 60px;
+    bottom: 0px;
+    overflow: scroll;
 }

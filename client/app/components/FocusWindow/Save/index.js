@@ -25,7 +25,7 @@ export default class Save extends React.Component {
         saveData.items.title = document.getElementById('savename').value;
         WallActions.wallLoad(saveData.items);
 
-        axios.post('http://localhost:8000/save', saveData)
+        axios.post(process.env.WALL_SAVE, saveData)
             .then(response => {
                 console.log(response);
                 FWindowActions.fWindowHide();

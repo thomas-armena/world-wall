@@ -16,7 +16,7 @@ export default class Home extends React.Component {
 		var username = document.getElementById('home-username').value;
 		var password = document.getElementById('home-password').value;
 		var passwordConf = document.getElementById('home-passwordConf').value;
-		axios.post('http://localhost:8000/', {
+		axios.post(process.env.USER_REGISTER, {
 			email: email,
 			username: username,
 			password: password,
@@ -37,7 +37,7 @@ export default class Home extends React.Component {
 		axios.defaults.withCredentials = true;
 
 		//Submit a login request to server
-		axios.post('http://localhost:8000/', {
+		axios.post(process.env.USER_REGISTER, {
 			logemail: email,
 			logpassword: password,
 		})
@@ -61,26 +61,26 @@ export default class Home extends React.Component {
 
 
                 <div className='home-login-content five columns'>
-                    <h3>Sign up</h3>
+                    <h3>Register</h3>
 
                     <div className='row'>
                         <div className="six columns">
-                          <label for="exampleEmailInput">Email</label>
+                          <label for="home-email">Email</label>
                           <input className="u-full-width" type="email" placeholder="email" id="home-email"/>
                         </div>
                         <div className="six columns">
-                          <label for="exampleEmailInput">Username</label>
+                          <label for="home-username">Username</label>
                           <input className="u-full-width" type="email" placeholder="username" id="home-username"/>
                         </div>
                     </div>
 
                     <div className='row'>
                         <div className="six columns">
-                          <label for="exampleEmailInput">Password</label>
+                          <label for="home-password">Password</label>
                           <input className="u-full-width" type="password" placeholder="password" id="home-password"/>
                         </div>
                         <div className="six columns">
-                          <label for="exampleEmailInput">Confirm Password</label>
+                          <label for="home-passwordConf">Confirm Password</label>
                           <input className="u-full-width" type="password" placeholder="confirm password" id="home-passwordConf"/>
                         </div>
                     </div>
@@ -92,11 +92,11 @@ export default class Home extends React.Component {
 
                     <div className='row'>
                         <div className="six columns">
-                          <label for="exampleEmailInput">Email</label>
+                          <label for="home-logemail">Email</label>
                           <input className="u-full-width" type="email" placeholder="email" id="home-logemail"/>
                         </div>
                         <div className="six columns">
-                          <label for="exampleEmailInput">Password</label>
+                          <label for="home-logpassword">Password</label>
                           <input className="u-full-width" type="password" placeholder="confirm password" id="home-logpassword"/>
                         </div>
                     </div>

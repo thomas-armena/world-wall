@@ -35,7 +35,7 @@ export default class ProjectDropdown extends React.Component {
 
     handleLoad(){
         axios.defaults.withCredentials = true;
-        axios.post('http://localhost:8000/load', { author: UserStore.getUser().username })
+        axios.post(process.env.WALL_LOAD, { author: UserStore.getUser().username })
             .then(response=>{
                 WallStore.setLoadData(response.data);
                 FWindowActions.fWindowContent('LOAD_OPTIONS');

@@ -4,7 +4,7 @@ import UserStore from '../../stores/UserStore';
 import UserActions from '../../actions/UserActions';
 
 export default class Register extends React.Component {
-	
+
 	constructor(props){
 		super(props);
 		this.state = {
@@ -21,7 +21,7 @@ export default class Register extends React.Component {
 	}
 
 	componentWillUnmount() {
-		UserStore.removeListener('CHANGE', this.callback); 
+		UserStore.removeListener('CHANGE', this.callback);
 	}
 
 	submit() {
@@ -31,12 +31,12 @@ export default class Register extends React.Component {
 		var username = document.getElementById('username').value;
 		var password = document.getElementById('password').value;
 		var passwordConf = document.getElementById('passwordConf').value;
-		axios.post('http://localhost:8000/', {
+		axios.post(process.env.USER_REGISTER, {
 			email: email,
 			username: username,
 			password: password,
 			passwordConf: passwordConf
-			
+
 		})
 		.then(response => {
 				UserActions.userLogin(response.data);
@@ -57,17 +57,18 @@ export default class Register extends React.Component {
 			<div>
 				<h1>Register</h1>
 				<div>
-					Email: <input type="text" id="email"  />
-					<br />
-					Username: <input type="text" id="username"  />
-					<br />
-					Password: <input type="text" id="password"  />
-					<br />
-					Confirm Password: <input type="text" id="passwordConf"  />
-					<br />
-					<button type="button" onClick={()=>this.submit()}>Submit </button>
-					<br />
-					<div>{message}</div>
+				<label for="exampleEmailInput">Email</label>
+				<input className="u-full-width" type="email" placeholder="email" id="home-email"/>
+
+				<label for="exampleEmailInput">Username</label>
+				<input className="u-full-width" type="email" placeholder="username" id="home-username"/>
+
+				<label for="exampleEmailInput">Password</label>
+				<input className="u-full-width" type="password" placeholder="password" id="home-password"/>
+
+				<label for="exampleEmailInput">Confirm Password</label>
+				<input className="u-full-width" type="password" placeholder="confirm password" id="home-passwordConf"/>
+
 				</div>
 			</div>
 		);

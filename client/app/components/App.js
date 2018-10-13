@@ -18,6 +18,7 @@ import FWindowActions from '../actions/FWindowActions';
 
 
 
+
 export default class App extends React.Component {
 
     constructor(props) {
@@ -30,13 +31,14 @@ export default class App extends React.Component {
         this.handleLoginClick = this.handleLoginClick.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.handleSignOut = this.handleSignOut.bind(this);
+        this.handleRegisterClick = this.handleRegisterClick.bind(this);
     }
 
     componentDidMount() {
-
+        console.log(process.env.USER_LOGIN)
         //login when application starts
         axios.defaults.withCredentials = true;
-        axios.get('http://localhost:8000/profile')
+        axios.get(process.env.USER_LOGIN)
             .then(response => {
                 UserActions.userLogin(response.data);
             })
@@ -60,13 +62,19 @@ export default class App extends React.Component {
         FWindowActions.fWindowShow();
     }
 
+    handleRegisterClick(){
+        FWindowActions.fWindowContent('REGISTER');
+        FWindowActions.fWindowShow();
+    }
+
     handleDropDown(){
         this.setState({loginShow:!this.state.loginShow});
     }
 
     handleSignOut(){
+        console.log(process.env.USER_LOGOUT)
         axios.defaults.withCredentials = true;
-        axios.get('http://localhost:8000/logout')
+        axios.get(process.env.USER_LOGOUT)
             .then(response => {
                 console.log(response);
                 UserActions.userLogout();
@@ -135,7 +143,7 @@ export default class App extends React.Component {
             loginArea = (
                 <div>
                     <li className='link right' onClick={this.handleLoginClick}>Sign In</li>
-                    <li className='link right' onClick={this.handleLoginClick}>Register</li>
+                    <li className='link right' onClick={this.handleRegisterClick}>Register</li>
                 </div>
             );
         }
