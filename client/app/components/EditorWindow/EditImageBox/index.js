@@ -42,7 +42,7 @@ export default class EditImageBox extends React.Component {
 
         file.append('test',files[0]);
         axios.defaults.withCredentials = true;
-        axios.post('http://localhost:8000/imageupload',file,{'Content-Type': 'multipart/form-data'})
+        axios.post(process.env.IMAGE_UPLOAD,file,{'Content-Type': 'multipart/form-data'})
             .then(function (response) {
                 console.log(response)
                 WallStore.items['item_'+WallStore.getSelectedId()].serverSrc = response.data;
