@@ -10,11 +10,6 @@ export default class ImageBox extends React.Component {
         }
     }
 
-    componentDidMount(){
-        //const
-    }
-
-
     render() {
         return(
             <Item

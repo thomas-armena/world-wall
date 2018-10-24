@@ -47,6 +47,7 @@ export default class Home extends React.Component {
 			})
 			.catch(error => {
 				console.log(error);
+                window.alert("Wrong username or password.")
 			});
 	}
 
@@ -65,43 +66,43 @@ export default class Home extends React.Component {
 
                     <div className='row'>
                         <div className="six columns">
-                          <label for="home-email">Email</label>
+                          <label htmlFor="home-email">Email</label>
                           <input className="u-full-width" type="email" placeholder="email" id="home-email"/>
                         </div>
                         <div className="six columns">
-                          <label for="home-username">Username</label>
+                          <label htmlFor="home-username">Username</label>
                           <input className="u-full-width" type="email" placeholder="username" id="home-username"/>
                         </div>
                     </div>
 
                     <div className='row'>
                         <div className="six columns">
-                          <label for="home-password">Password</label>
+                          <label htmlFor="home-password">Password</label>
                           <input className="u-full-width" type="password" placeholder="password" id="home-password"/>
                         </div>
                         <div className="six columns">
-                          <label for="home-passwordConf">Confirm Password</label>
+                          <label htmlFor="home-passwordConf">Confirm Password</label>
                           <input className="u-full-width" type="password" placeholder="confirm password" id="home-passwordConf"/>
                         </div>
                     </div>
 
-                    <button class="button-primary" onClick={this.signUp}>Sign up</button>
+                    <button className="button-primary" onClick={this.signUp}>Sign up</button>
 
                     <hr />
                     <h3>Sign in</h3>
 
                     <div className='row'>
                         <div className="six columns">
-                          <label for="home-logemail">Email</label>
+                          <label htmlFor="home-logemail">Email</label>
                           <input className="u-full-width" type="email" placeholder="email" id="home-logemail"/>
                         </div>
                         <div className="six columns">
-                          <label for="home-logpassword">Password</label>
+                          <label htmlFor="home-logpassword">Password</label>
                           <input className="u-full-width" type="password" placeholder="confirm password" id="home-logpassword"/>
                         </div>
                     </div>
 
-                    <button class="button-primary" onClick={this.signIn}>Sign in</button>
+                    <button className="button-primary" onClick={this.signIn}>Sign in</button>
                 </div>
             </div>
         );

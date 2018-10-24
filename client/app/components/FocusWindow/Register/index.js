@@ -7,12 +7,7 @@ import '../../styles.scss';
 import '../../skeleton.css'
 
 export default class Register extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
 
-        };
-    }
 
     Register() {
 		axios.defaults.withCredentials = true;
@@ -46,19 +41,19 @@ export default class Register extends React.Component {
                 <div className='focuswindow-content'>
 
 
-                    <label for="exampleEmailInput">Email</label>
+                    <label htmlFor="exampleEmailInput">Email</label>
                     <input className="u-full-width" type="email" placeholder="email" id="email"/>
 
-                    <label for="exampleEmailInput">Username</label>
+                    <label htmlFor="exampleEmailInput">Username</label>
                     <input className="u-full-width" type="email" placeholder="username" id="username"/>
 
-                    <label for="exampleEmailInput">Password</label>
+                    <label htmlFor="exampleEmailInput">Password</label>
                     <input className="u-full-width" type="password" placeholder="password" id="password"/>
 
-                    <label for="exampleEmailInput">Confirm Password</label>
+                    <label htmlFor="exampleEmailInput">Confirm Password</label>
                     <input className="u-full-width" type="password" placeholder="confirm password" id="passwordConf"/>
 
-                    <button class="button-primary mid" onClick={this.Register}>Register</button>
+                    <button className="button-primary mid" onClick={this.Register}>Register</button>
                 </div>
             </div>
         );

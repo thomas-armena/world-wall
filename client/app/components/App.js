@@ -35,8 +35,6 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log(process.env.USER_LOGIN)
-        //login when application starts
         axios.defaults.withCredentials = true;
         axios.get(process.env.USER_LOGIN)
             .then(response => {
@@ -72,7 +70,6 @@ export default class App extends React.Component {
     }
 
     handleSignOut(){
-        console.log(process.env.USER_LOGOUT)
         axios.defaults.withCredentials = true;
         axios.get(process.env.USER_LOGOUT)
             .then(response => {

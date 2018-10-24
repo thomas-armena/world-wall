@@ -8,7 +8,7 @@ router.post('/', function(req, res, next){
         req.body.username &&
         req.body.password &&
         req.body.passwordConf) {
-        
+
         var userData = {
             email: req.body.email,
             username: req.body.username,
@@ -38,7 +38,7 @@ router.post('/', function(req, res, next){
             }
         });
     }
-    
+
 });
 
 router.get('/profile', function(req, res, next) {

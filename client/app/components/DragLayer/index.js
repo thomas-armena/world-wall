@@ -66,7 +66,6 @@ export default class DragLayer extends React.Component {
     }
 
     handleMouseMove(e){
-        console.log('move')
         this.setState({
             x: e.clientX-50,
             y: e.clientY-40-50,
@@ -79,7 +78,6 @@ export default class DragLayer extends React.Component {
             x: e.clientX,
             y: e.clientY-40,
         }
-        console.log(e.clientX)
         WallActions.itemAdd(item);
     }
 

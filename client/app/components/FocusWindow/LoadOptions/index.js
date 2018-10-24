@@ -12,14 +12,15 @@ export default class LoadOptions extends React.Component {
         this.state = {
             loadOptions: WallStore.getLoadData(),
         };
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount(){
-        WallStore.on('DATA_LOADED', ()=>this.handleUpdate());
+        WallStore.on('DATA_LOADED', this.handleUpdate);
     }
 
     componentWillUnmount(){
-        WallStore.removeListener('DATA_LOADED', ()=>this.handleUpdate());
+        WallStore.removeListener('DATA_LOADED', this.handleUpdate);
 
     }
 

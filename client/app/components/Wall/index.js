@@ -60,10 +60,7 @@ export default class Wall extends React.Component {
     }
 
     handleDragStart(){
-        console.log(WallStore.getStoredItem());
-
         this.setState({draggingNew:true});
-
     }
 
 
@@ -97,13 +94,6 @@ export default class Wall extends React.Component {
             stageInst.position(newPos);
             stageInst.batchDraw();
         }
-    }
-
-    test() {
-        let item = WallStore.getStoredItem();
-        var stage = this.refs.stage.getStage();
-        console.log(stage.pointerPos);
-        WallActions.itemAdd(item)
     }
 
 

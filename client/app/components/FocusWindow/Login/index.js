@@ -7,14 +7,9 @@ import '../../styles.scss';
 import '../../skeleton.css'
 
 export default class Login extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
 
-        };
-    }
 
-    handleSubmit() {
+    signIn() {
         var email = document.getElementById('email').value;
 		var password = document.getElementById('password').value;
 		axios.defaults.withCredentials = true;
@@ -25,6 +20,7 @@ export default class Login extends React.Component {
 			logpassword: password,
 		})
 			.then(response => {
+                console.log(response);
 				UserActions.userLogin(response.data);
                 if (response.data){
                     FWindowActions.fWindowHide();
@@ -32,6 +28,7 @@ export default class Login extends React.Component {
 			})
 			.catch(error => {
 				console.log(error);
+                window.alert("Wrong username or password.")
 			});
 
     }
@@ -43,14 +40,14 @@ export default class Login extends React.Component {
                 <div style={{margin: '10px'}}>
 
 
-                    <label for="EmailInput">Email</label>
-                    <input className="u-full-width" type="email" placeholder="email" id="email"/>
+                    <label htmlFor="EmailInput">Email</label>
+                    <input ref="email" className="u-full-width" type="email" placeholder="email" id="email"/>
 
 
-                    <label for="exampleEmailInput">Password</label>
-                    <input className="u-full-width" type="password" placeholder="password" id="password"/>
+                    <label htmlFor="exampleEmailInput">Password</label>
+                    <input ref="password" className="u-full-width" type="password" placeholder="password" id="password"/>
 
-                    <button class="button-primary mid" onClick={this.signIn}>Sign in</button>
+                    <button className="button-primary mid" onClick={this.signIn}>Sign in</button>
                 </div>
             </div>
         );

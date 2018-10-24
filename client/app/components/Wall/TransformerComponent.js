@@ -38,7 +38,6 @@ export default class TransformerComponent extends React.Component {
 	}
 
 	updateCallback(){
-		//console.log('help')
 		this.setState({ selectedId: WallStore.getSelectedId() });
 	}
 

@@ -7,12 +7,7 @@ import FWindowActions from '../../../actions/FWindowActions';
 import '../../styles.scss';
 
 export default class Save extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            title: '',
-        };
-    }
+
 
     handleSubmit() {
         axios.defaults.withCredentials = true;
@@ -37,10 +32,11 @@ export default class Save extends React.Component {
     }
 
     render(){
+        console.log('render')
         return(
             <div>
                 <div className='header'>Save</div>
-                <input type='text' id='savename' />
+                <input type='text' id='savename' refs="input" defaultValue={WallStore.getItems().title}/>
                 <div onClick={()=>this.handleSubmit()} className='submit'>Submit</div>
             </div>
         );

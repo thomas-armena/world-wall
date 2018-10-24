@@ -8,7 +8,7 @@ export default class View extends React.Component {
  		this.state= {
 			message: 'No message'
 		}
-		
+
 	}
 
 	componentDidMount() {
@@ -17,11 +17,9 @@ export default class View extends React.Component {
 			username: 'thomasarmena2',
 			password: '12345',
 			passwordConf: '12345'
-			
+
 		})
 		.then((response) => {
-				console.log(response.status);
-				console.log(response.data);
 				this.setState({message: response.data});
 		})
 		.catch(function (error) {

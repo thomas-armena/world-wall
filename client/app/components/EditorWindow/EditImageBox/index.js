@@ -15,18 +15,6 @@ export default class EditImageBox extends React.Component {
         this.onDrop = this.onDrop.bind(this);
     }
 
-    componentDidMount(){
-        WallStore.on('UPDATE', this.handleUpdate);
-    }
-
-    componentWillUnmount(){
-        WallStore.removeListener('UPDATE', this.handleUpdate);
-    }
-
-    handleUpdate(){
-
-    }
-
     onDrop(files){
         var file = new FormData();
 
@@ -36,9 +24,6 @@ export default class EditImageBox extends React.Component {
             WallStore.items['item_'+WallStore.getSelectedId()].src = image;
             WallStore.emit('UPDATE');
         }
-
-
-
 
         file.append('test',files[0]);
         axios.defaults.withCredentials = true;

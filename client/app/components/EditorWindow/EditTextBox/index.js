@@ -10,29 +10,14 @@ export default class EditTextBox extends React.Component {
         this.state = {
             text: WallStore.getItems()['item_'+WallStore.getSelectedId()].text
         }
-        this.handleUpdate = this.handleUpdate.bind(this)
-    }
-
-    componentDidMount(){
-        WallStore.on('UPDATE', this.handleUpdate);
-    }
-
-    componentWillUnmount(){
-        WallStore.removeListener('UPDATE', this.handleUpdate);
-    }
-
-    handleUpdate(){
-
-        this.setState({
-            text: WallStore.getItems()['item_'+WallStore.getSelectedId()].text,
-        });
-
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(){
+
         const newText = this.refs.textbox.value;
         WallStore.items['item_'+WallStore.getSelectedId()].text = newText;
-        WallStore.emit('UPDATE')
+        WallStore.emit('UPDATE');
 
         this.setState({text: newText});
     }
@@ -43,7 +28,7 @@ export default class EditTextBox extends React.Component {
                 <textarea className='editor-textarea'
                     value={this.state.text}
                     ref='textbox'
-                    onChange={()=>this.handleChange()}
+                    onChange={this.handleChange}
                 />
             </div>
         )
