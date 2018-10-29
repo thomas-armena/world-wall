@@ -4,11 +4,11 @@ import Dispatcher from '../dispatcher';
 import EventEmitter from 'events';
 
 class FWindowStore extends EventEmitter {
-    
+
     constructor(){
         super();
 		Dispatcher.register(this.registerToAction.bind(this));
-        this.content = <div/>;
+        this.content = 'NONE';
         this.show = false;
     }
 
@@ -33,6 +33,7 @@ class FWindowStore extends EventEmitter {
 
     hideWindow(){
         this.show = false;
+        this.content = 'NONE';
         this.emit('FWINDOW_UPDATE');
     }
 

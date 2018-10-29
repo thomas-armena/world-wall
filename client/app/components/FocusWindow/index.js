@@ -6,6 +6,7 @@ import LoadOptions from './LoadOptions';
 import Save from './Save';
 import Login from './Login';
 import Register from './Register';
+import Rename from './Rename';
 
 export default class FocusWindow extends React.Component {
     constructor(props){
@@ -46,7 +47,9 @@ export default class FocusWindow extends React.Component {
             content = < Login />;
         } else if(this.state.content == 'REGISTER'){
             content = < Register />;
-        }
+        } else if(this.state.content == 'RENAME'){
+            content = < Rename />;
+        } 
 
         console.log(this.state.content);
         return(

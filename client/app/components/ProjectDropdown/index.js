@@ -52,8 +52,10 @@ export default class ProjectDropdown extends React.Component {
     }
 
     handleRename(){
-        const newName = window.prompt('Please enter new name: ', this.state.title);
-        WallActions.wallRename(newName);
+        FWindowActions.fWindowContent('RENAME');
+        FWindowActions.fWindowShow();
+        //const newName = window.prompt('Please enter new name: ', this.state.title);
+        //WallActions.wallRename(newName);
 
     }
 

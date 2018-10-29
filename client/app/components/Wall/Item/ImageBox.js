@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from './index';
-import { Text, Rect, Image } from 'react-konva';
+import { Text, Rect, Image, Group } from 'react-konva';
 
 export default class ImageBox extends React.Component {
     constructor(props){
@@ -11,6 +11,16 @@ export default class ImageBox extends React.Component {
     }
 
     render() {
+        let filler;
+        if (this.props.src != ''){
+            filler = < Group />
+        } else {
+            filler = <Rect
+                width={this.props.width}
+                height={this.props.height}
+                fill='#E6E6EA'
+            />
+        }
         return(
             <Item
                 x={this.props.x}
@@ -21,11 +31,7 @@ export default class ImageBox extends React.Component {
                 edit={this.props.edit}
                 id={this.props.id}
             >
-                <Rect
-                    width={this.props.width}
-                    height={this.props.height}
-                    fill='#E6E6EA'
-                />
+                {filler}
                 <Image
                     image={this.props.src}
                     width={this.props.width}
