@@ -52,6 +52,13 @@ class WallActions {
         });
     }
 
+	wallSetUrl(url) {
+		Dispatcher.dispatch({
+            actionType: ActionTypes.WALL_SET_URL,
+            payload: url,
+        });
+	}
+
 }
 
 export default new WallActions();

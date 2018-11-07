@@ -2,6 +2,7 @@ import React from 'react';
 import SideBar from './SideBar';
 import ProjectDropdown from './ProjectDropdown';
 import Wall from './Wall';
+import View from './View';
 import Login from './Login';
 import Register from './Register';
 import NavBar from './NavBar';
@@ -94,11 +95,6 @@ export default class App extends React.Component {
             </div>
         );
 
-        const View = () => (
-            <div>
-                <Wall edit={false}/>
-            </div>
-        );
 
         const About = () => (
             <div>About</div>
@@ -124,16 +120,6 @@ export default class App extends React.Component {
 
                         {this.state.user.username}
                     </li>
-                    {/*
-                    <i className="material-icons right"
-                        style={{
-                            color: 'white',
-                            top: '5px',
-                        }}
-                    >
-                        account_circle
-                    </i>
-                    */}
                 </div>
             );
         } else {
@@ -159,7 +145,7 @@ export default class App extends React.Component {
                         <ul>
                             <li className='left'><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
                             <li className='left'><MenuLink to="/create" label="Create" /></li>
-                            <li className='left'><MenuLink to="/view" label="View" /></li>
+                            <li className='left'><MenuLink to="/view/4kings" label="View" /></li>
                         </ul>
                         <ul>
                             {loginArea}
@@ -169,7 +155,7 @@ export default class App extends React.Component {
                     <div id="content-wrapper">
                         <Route exact path="/" component={Home} />
                         <Route path="/create" component={Editor} />
-                        <Route path="/view" component={View} />
+                        <Route path="/view/:id" component={View} />
                         <Route path="/about" component={About} />
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />

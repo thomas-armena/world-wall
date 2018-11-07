@@ -37,6 +37,7 @@ export default class ProjectDropdown extends React.Component {
         axios.defaults.withCredentials = true;
         axios.post(process.env.WALL_LOAD, { author: UserStore.getUser().username })
             .then(response=>{
+                console.log(response.data)
                 WallStore.setLoadData(response.data);
                 FWindowActions.fWindowContent('LOAD_OPTIONS');
                 FWindowActions.fWindowShow();
@@ -54,9 +55,11 @@ export default class ProjectDropdown extends React.Component {
     handleRename(){
         FWindowActions.fWindowContent('RENAME');
         FWindowActions.fWindowShow();
-        //const newName = window.prompt('Please enter new name: ', this.state.title);
-        //WallActions.wallRename(newName);
+    }
 
+    handleSetUrl(){
+        FWindowActions.fWindowContent('SET_URL');
+        FWindowActions.fWindowShow();
     }
 
     render() {
@@ -66,6 +69,7 @@ export default class ProjectDropdown extends React.Component {
                 <div className={'option-dropdown load '+activatedclass} onClick={()=>this.handleLoad()}>Load</div>
                 <div className={'option-dropdown save '+activatedclass} onClick={()=>this.handleSave()}>Save</div>
                 <div className={'option-dropdown rename '+activatedclass} onClick={()=>this.handleRename()}>Rename</div>
+                <div className={'option-dropdown set-url '+activatedclass} onClick={()=>this.handleSetUrl()}>Set URL</div>
                 <div onClick={()=>this.handleClick()} className="title">{this.state.title}</div>
             </div>
         );

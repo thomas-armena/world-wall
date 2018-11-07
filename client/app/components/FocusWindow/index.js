@@ -7,6 +7,7 @@ import Save from './Save';
 import Login from './Login';
 import Register from './Register';
 import Rename from './Rename';
+import SetURL from './SetURL';
 
 export default class FocusWindow extends React.Component {
     constructor(props){
@@ -49,9 +50,10 @@ export default class FocusWindow extends React.Component {
             content = < Register />;
         } else if(this.state.content == 'RENAME'){
             content = < Rename />;
-        } 
+        } else if(this.state.content == 'SET_URL'){
+            content = < SetURL />;
+        }
 
-        console.log(this.state.content);
         return(
             <div>
                 <div className={'underlay '+visibility} onClick={()=>this.clickUnderlay()} />

@@ -8,7 +8,7 @@ class WallStore extends EventEmitter {
 	constructor() {
 		super();
 		Dispatcher.register(this.registerToAction.bind(this));
-		this.items = {title: 'New Wall', nextId: 0,};
+		this.items = {title: 'New Wall',url: 'newwall', nextId: 0,};
         this.loadedItems = [];
 		this.storedItem = {};
 		this.selectedId = null;
@@ -49,7 +49,9 @@ class WallStore extends EventEmitter {
 		    case ActionTypes.WALL_RENAME:
 		        this._renameWall(action.payload);
           		break;
-
+			case ActionTypes.WALL_SET_URL:
+				this._setUrl(action.payload);
+				break;
 		}
 	}
 
@@ -93,6 +95,7 @@ class WallStore extends EventEmitter {
 
 	_loadWall(loadData){
 	  this.items = loadData;
+	  console.log(loadData)
 	  axios.defaults.withCredentials = true;
 
 	  //For each image item, retrieve the image from the server
@@ -116,8 +119,6 @@ class WallStore extends EventEmitter {
 				})
 		  }
 	  }
-	  //axios.get('/imageupload',{src: })
-
 	  this.emit('UPDATE');
 	  console.log('LOAD')
 	}
@@ -126,6 +127,10 @@ class WallStore extends EventEmitter {
 	  this.items.title = name;
 	  this.emit('UPDATE');
 	  console.log('RENAME')
+	}
+
+	_setUrl(url){
+		this.items.url = url;
 	}
 
 	getItems(){

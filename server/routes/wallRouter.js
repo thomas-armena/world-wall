@@ -22,8 +22,11 @@ router.post('/save', function(req, res, next){
         var wallData = {
             author: req.body.author,
             collaborators: req.body.collaborators,
+            url: req.body.items.url,
             wall: req.body.items,
         };
+
+        console.log(wallData);
 
         Wall.update({ 'wall.title': wallData.wall.title, author: wallData.author }, wallData, { upsert: true }, (err, wall) => {
             if(err){
@@ -42,8 +45,14 @@ router.post('/load', function(req, res, next){
         var walls = Wall.find({ author: req.body.author }, function(err, walls){
             res.send(walls);
         });
+    } else if(req.body.url){
+        var walls = Wall.find({ url: req.body.url }, function(err, walls){
+            res.send(walls);
+        });
     }
 });
+
+
 
 router.post('/imageupload', upload.single('test'), function(req, res, next){
     console.log('image file:')

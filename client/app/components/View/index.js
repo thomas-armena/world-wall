@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Wall from '../Wall';
+import WallActions from '../../actions/WallActions';
 
 export default class View extends React.Component {
 
@@ -12,25 +14,27 @@ export default class View extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.post('http://localhost:8000/', {
-			email: 'thomasarmena2@gmail.com',
-			username: 'thomasarmena2',
-			password: '12345',
-			passwordConf: '12345'
+		console.log('id:');
+		console.log(this.props.match.params.id);
 
-		})
-		.then((response) => {
-				this.setState({message: response.data});
-		})
-		.catch(function (error) {
-				console.log(error);
-		});
+		axios.defaults.withCredentials = true;
+        axios.post(process.env.WALL_LOAD, { url: this.props.match.params.id })
+            .then(response=>{
+                console.log(response.data)
+				if(response.data[0]){
+					WallActions.wallLoad(response.data[0].wall);
+				}
+
+            })
+            .catch(error=>{
+                console.log(error);
+            });
 	}
 
 	render() {
 		return(
 			<div>
-			{this.state.message}
+				<Wall edit={true}/>
 			</div>
 
 		);

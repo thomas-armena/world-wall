@@ -105,6 +105,8 @@ export default class Wall extends React.Component {
 
 
     render(){
+        console.log('ren:')
+        console.log(this.state.items)
         let itemsJSX = [];
         for (var i in this.state.items){
             const itemData = this.state.items[i];
@@ -164,7 +166,6 @@ export default class Wall extends React.Component {
                     onDragEnd={this.handleDrop}
                     ref="stage"
                     onClick={(e)=>this.handleClick(e)}
-                    id="stage"
                 >
                     <Layer>
                         {itemsJSX}
