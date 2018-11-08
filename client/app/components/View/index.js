@@ -34,7 +34,7 @@ export default class View extends React.Component {
 	render() {
 		return(
 			<div>
-				<Wall edit={true}/>
+				<Wall edit={false}/>
 			</div>
 
 		);
