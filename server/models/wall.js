@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 
 var WallSchema = new mongoose.Schema({
     author: String,
-    url: String,
     collaborators: [String],
     wall: Object,
+    url: String,
 });
 
 var Wall = mongoose.model('Wall', WallSchema);

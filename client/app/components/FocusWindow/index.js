@@ -7,7 +7,9 @@ import Save from './Save';
 import Login from './Login';
 import Register from './Register';
 import Rename from './Rename';
+import GetURL from './GetURL';
 import SetURL from './SetURL';
+
 
 export default class FocusWindow extends React.Component {
     constructor(props){
@@ -52,6 +54,8 @@ export default class FocusWindow extends React.Component {
             content = < Rename />;
         } else if(this.state.content == 'SET_URL'){
             content = < SetURL />;
+        } else if(this.state.content == 'GET_URL'){
+            content = < GetURL />;
         }
 
         return(

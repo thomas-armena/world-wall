@@ -295,6 +295,12 @@ html, body, #app, #app>div {
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
+.get-url.activate {
+    top:232px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+
 .nav-bar {
 	z-index: 4;
 	background-color: $primary-color;

@@ -62,6 +62,11 @@ export default class ProjectDropdown extends React.Component {
         FWindowActions.fWindowShow();
     }
 
+    handleGetUrl(){
+        FWindowActions.fWindowContent('GET_URL');
+        FWindowActions.fWindowShow();
+    }
+
     render() {
         const activatedclass = this.state.activated ? 'activate' : '';
         return (
@@ -70,6 +75,7 @@ export default class ProjectDropdown extends React.Component {
                 <div className={'option-dropdown save '+activatedclass} onClick={()=>this.handleSave()}>Save</div>
                 <div className={'option-dropdown rename '+activatedclass} onClick={()=>this.handleRename()}>Rename</div>
                 <div className={'option-dropdown set-url '+activatedclass} onClick={()=>this.handleSetUrl()}>Set URL</div>
+                <div className={'option-dropdown get-url '+activatedclass} onClick={()=>this.handleGetUrl()}>Get Shareable URL</div>
                 <div onClick={()=>this.handleClick()} className="title">{this.state.title}</div>
             </div>
         );

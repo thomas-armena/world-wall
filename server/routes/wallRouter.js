@@ -18,30 +18,86 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post('/save', function(req, res, next){
+    /*
+    pass author, collaborators, and wall in order to save wall data
+    pass author, collaborators, wall, and url to set url
+
+    */
+
     if(req.body.author && req.body.collaborators && req.body.items){
+
         var wallData = {
             author: req.body.author,
             collaborators: req.body.collaborators,
-            url: req.body.items.url,
             wall: req.body.items,
         };
 
-        console.log(wallData);
+        if(req.body.url){
+            console.log('setting url')
+            Wall.find({ 'url': req.body.url }, (err, walls) => {
+                console.log(walls);
+                var duplicate = false;
+                if(walls){
+                    for (var record of walls){
+                        if(record.author != wallData.author || record.wall.title != wallData.wall.title){
+                            duplicate = true
+                            break;
+                        }
+                    }
+                }
+                if (duplicate){
+                    console.log('duplicate found');
+                    var err = new Error('URL is taken.');
+                    return next(err);
+                } else {
+                    console.log('url set');
+                    var urlData = { url: req.body.url };
+                    Wall.update({ 'wall.title': wallData.wall.title, author: wallData.author }, urlData, { upsert: true }, (err, wall) => {
+                        if(err){
+                            return next(err);
+                        } else {
+                            req.session.wall = wall;
+                            res.send(wall);
+                        }
+                    });
+                }
 
-        Wall.update({ 'wall.title': wallData.wall.title, author: wallData.author }, wallData, { upsert: true }, (err, wall) => {
-            if(err){
-                return next(err);
-            } else {
-                req.session.wall = wall;
-                res.send(wall);
-            }
-        });
+
+            });
+
+        } else {
+            console.log('saving wall data')
+            Wall.update({ 'wall.title': wallData.wall.title, author: wallData.author }, wallData, { upsert: true }, (err, wall) => {
+                if(err){
+                    return next(err);
+                } else {
+                    req.session.wall = wall;
+                    res.send(wall);
+                }
+            });
+
+        }
+
+
     }
 });
 
+
 router.post('/load', function(req, res, next){
+    /*
+    pass author to get all walls
+    pass url to get wall of that url
+    pass author and wall to get url
+
+    */
+
+
     console.log(req.body);
-    if(req.body.author){
+    if(req.body.author && req.body.items){
+        Wall.findOne({ 'wall.title': req.body.items.title, author: req.body.author }, function(err,wall){
+            res.send(wall.url);
+        });
+    } else if(req.body.author){
         var walls = Wall.find({ author: req.body.author }, function(err, walls){
             res.send(walls);
         });
