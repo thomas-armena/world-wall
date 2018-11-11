@@ -40,7 +40,7 @@ router.post('/save', function(req, res, next){
 });
 
 router.post('/load', function(req, res, next){
-    console.log(req.body);
+    console.log('load: '+req.body);
     if(req.body.author){
         var walls = Wall.find({ author: req.body.author }, function(err, walls){
             res.send(walls);
