@@ -7,7 +7,7 @@ var MongoStore = require('connect-mongo')(session);
 var cookieParser = require('cookie-parser');
 
 //Connect to database
-mongoose.connect('mongodb://localhost/worldWallDB');
+mongoose.connect('mongodb://localhost:27017/worldWallDB', { useNewUrlParser: true });
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error'));
