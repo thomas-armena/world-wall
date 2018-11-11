@@ -19,6 +19,8 @@ const Icon = (props)=>{
                 position:'absolute',
                 left:props.x+'px',
                 top:props.y+'px',
+                width: '110px',
+                height: '110px',
             }}
         />
     );

@@ -27,12 +27,15 @@ export default class App extends React.Component {
         this.state = {
             user: null,
             loginShow: false,
+            menuShow: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleClickMenu = this.handleClickMenu.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.handleSignOut = this.handleSignOut.bind(this);
         this.handleRegisterClick = this.handleRegisterClick.bind(this);
+        this.hideMenu = this.hideMenu.bind(this);
     }
 
     componentDidMount() {
@@ -68,6 +71,14 @@ export default class App extends React.Component {
 
     handleDropDown(){
         this.setState({loginShow:!this.state.loginShow});
+    }
+
+    handleClickMenu(){
+        this.setState({menuShow:!this.state.menuShow});
+    }
+
+    hideMenu(){
+        this.setState({menuShow:false});
     }
 
     handleSignOut(){
@@ -108,7 +119,7 @@ export default class App extends React.Component {
                 exact={activeOnlyWhenExact}
                 children={({ match }) => (
                     <div>
-                        <Link className={match ? 'link activated' : 'link'} to={to}>{label}</Link>
+                        <Link onClick={this.hideMenu} className={match ? 'link activated' : 'link'} to={to}>{label}</Link>
                     </div>
                 )}
             />
@@ -132,7 +143,7 @@ export default class App extends React.Component {
                 </div>
             );
         }
-        const dropDownToggle = this.state.loginShow ? 'show-drop' : 'hide-drop'
+        const dropDownToggle = this.state.loginShow ? 'show-drop' : 'hide-drop';
         const UserDropDown = (
             <div className={'user-dropdown '+dropDownToggle}>
                 <div className='item'>Profile</div>
@@ -140,20 +151,46 @@ export default class App extends React.Component {
             </div>
         );
 
+        const menuToggle = this.state.menuShow ? 'show-menu' : 'hide-menu';
+        let MenuDropDown;
+        if (this.state.user){
+            MenuDropDown = (
+                <div className={'menu-dropdown '+menuToggle}>
+                    <div className='menu-item'>Profile</div>
+                    <div className='menu-item' onClick={this.handleSignOut}>Signout</div>
+                </div>
+            );
+        } else {
+            MenuDropDown = (
+                <div className={'menu-dropdown '+menuToggle}>
+                    <div className='menu-item'><MenuLink to="/" label="Home" /></div>
+                    <div className='menu-item'>Profile</div>
+                    <div className='menu-item' onClick={this.handleLoginClick}>Sign In</div>
+                    <div className='menu-item' onClick={this.handleRegisterClick}>Register</div>
+                    <div className='menu-item'><MenuLink to="/view/4kings" label="View" /></div>
+                </div>
+            );
+        }
+
+
         return (
             <Router>
                 <div>
-                    <NavBar>
-                        <ul>
-                            <li className='left'><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
-                            <li className='left'><MenuLink to="/create" label="Create" /></li>
-                            <li className='left'><MenuLink to="/view/4kings" label="View" /></li>
-                        </ul>
-                        <ul>
-                            {loginArea}
-                        </ul>
-                    </NavBar>
+                    <div className='nav-bar'>
+                        <i className="material-icons left icon" onClick={this.handleClickMenu}>toc</i>
+                        <div className='nav-desktop'>
+                            <ul>
+                                <li className='left'><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
+                                <li className='left'><MenuLink to="/create" label="Create" /></li>
+                                <li className='left'><MenuLink to="/view/4kings" label="View" /></li>
+                            </ul>
+                            <ul>
+                                {loginArea}
+                            </ul>
+                        </div>
+                    </div>
                     {UserDropDown}
+                    {MenuDropDown}
                     <div id="content-wrapper">
                         <Route exact path="/" component={Home} />
                         <Route path="/create" component={Editor} />

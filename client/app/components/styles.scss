@@ -295,6 +295,15 @@ html, body, #app, #app>div {
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
+.get-url.activate {
+    top:232px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* -------- NAV BAR -------- */
+
 .nav-bar {
 	z-index: 4;
 	background-color: $primary-color;
@@ -304,6 +313,36 @@ html, body, #app, #app>div {
 	left: 0px;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
 
+}
+
+.nav-bar .icon {
+	color: $bg-lighter-color;
+	font-size: 40px;
+	margin: 2px;
+	display: none;
+}
+
+.menu-dropdown {
+	display: none;
+	z-index: 6;
+	position: fixed;
+	left: 0;
+	top: $navbar-height;
+	color: black;
+	background-color: $bg-light-color;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+	width: 100%;
+	text-align: center;
+}
+
+.menu-dropdown .menu-item {
+	margin: 20px;
+
+}
+
+.menu-dropdown .menu-item .link {
+	text-decoration: none;
+	color: black;
 }
 
 .nav-bar ul {
@@ -347,6 +386,31 @@ html, body, #app, #app>div {
 .activated {
         background-color: $secondary-color;
 }
+
+@media screen and (max-width: 550px) {
+	.nav-bar .nav-desktop {
+		display: none;
+	}
+
+	.nav-bar .icon {
+		display: block;
+	}
+
+	.hide-menu {
+		display: none;
+	}
+
+	.show-menu {
+		display: block;
+	}
+
+	.activated {
+		background-color: inherit;
+	}
+
+}
+
+/* -------- LOAD CONTENT -------- */
 
 .header {
     display: block;
@@ -540,6 +604,12 @@ __________________________________ */
 	overflow: scroll;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 
+}
+
+@media screen and (max-width: 550px) {
+	.home-login-content {
+		height: auto;
+	}
 }
 
 .home-login-content h3 {

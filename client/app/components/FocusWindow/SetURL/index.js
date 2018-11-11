@@ -16,9 +16,10 @@ export default class SetURL extends React.Component {
             author: UserStore.getUser().username,
             collaborators: [UserStore.getUser().username],
             items: WallStore.getItems(),
+            url: document.getElementById('seturl').value,
         };
 
-        saveData.items.url = document.getElementById('seturl').value
+        //saveData.items.url = document.getElementById('seturl').value
         WallActions.wallLoad(saveData.items);
 
         axios.post(process.env.WALL_SAVE, saveData)
@@ -27,9 +28,10 @@ export default class SetURL extends React.Component {
                 FWindowActions.fWindowHide();
             })
             .catch(err => {
-                console.log(err);
+                window.alert(err);
+                FWindowActions.fWindowHide();
             });
-        FWindowActions.fWindowHide();
+
     }
 
 
@@ -40,10 +42,8 @@ export default class SetURL extends React.Component {
                 <div style={{margin: '10px'}}>
 
 
-                    <label htmlFor="EmailInput">https://postra.com/</label>
-                    <input refs="seturl" className="u-full-width" type="text" placeholder="name" id="seturl"
-                        defaultValue={WallStore.getItems().url}
-                    />
+                    <label htmlFor="EmailInput">https://postra.com/view/</label>
+                    <input refs="seturl" className="u-full-width" type="text" placeholder="name" id="seturl"/>
 
 
                     <button className="button-primary mid" onClick={this.submit}>submit</button>
