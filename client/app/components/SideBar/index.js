@@ -7,6 +7,7 @@ import SVGInline from "react-svg-inline";
 import ImageSVG from '../../assets/Image_Icon.svg';
 import TextSVG from '../../assets/Text_Icon.svg';
 import ItemSVG from '../../assets/Item.svg';
+import BGSettings from './BGSettings';
 
 export default class SideBar extends React.Component {
 
@@ -92,16 +93,16 @@ export default class SideBar extends React.Component {
                 </div>
                 <div className={'sidebar-project '+projectclass}
                     onMouseEnter={()=>this.slideProject()}
-                    onMouseLeave={()=>this.slideProjectOut()}
                 >
                     <div className='sidebar-content-project'>
                         <div className='header-project'>Project Settings</div>
+                        <BGSettings />
                         <div className='option'>Save</div>
                         <div className='option'>Load</div>
                         <div className='option'>Rename</div>
                     </div>
                     <div className="sidebar-ext">
-                        <div className='slidebutton-project'>
+                        <div className='slidebutton-project' onClick={()=>this.slideProjectOut()}>
                             <i className="material-icons slide-icon">settings</i>
                         </div>
                     </div>

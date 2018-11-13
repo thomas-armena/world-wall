@@ -8,7 +8,18 @@ class WallStore extends EventEmitter {
 	constructor() {
 		super();
 		Dispatcher.register(this.registerToAction.bind(this));
-		this.items = {title: 'New Wall',url: '', nextId: 0,};
+		this.items = {
+			title: 'New Wall',
+			background: {
+				src: '',
+				serverSrc: '',
+				width: 4000,
+				height: 4000,
+				pattern: true,
+			},
+			url: '',
+			nextId: 0,
+		};
         this.loadedItems = [];
 		this.storedItem = {};
 		this.selectedId = null;
@@ -51,6 +62,9 @@ class WallStore extends EventEmitter {
           		break;
 			case ActionTypes.WALL_SET_URL:
 				this._setUrl(action.payload);
+				break;
+			case ActionTypes.WALL_SET_BG:
+				this._setBG(action.payload);
 				break;
 		}
 	}
@@ -101,6 +115,7 @@ class WallStore extends EventEmitter {
 	  //For each image item, retrieve the image from the server
 	  for(let key in this.items){
 		  if (this.items[key]['serverSrc']){ //check if the item has a server source
+			  console.log(key);
 			  axios.post(process.env.IMAGE_GET,{src:this.items[key]['serverSrc']},{responseType:'arraybuffer'})
 			  	.then(response => {
 					console.log(response);
@@ -133,6 +148,13 @@ class WallStore extends EventEmitter {
 		this.items.url = url;
 	}
 
+	_setBG(bg){
+		console.log('bg set');
+		console.log(bg);
+		this.items.background = bg;
+		this.emit('UPDATE');
+	}
+
 	getItems(){
 		return this.items;
 	}
@@ -151,6 +173,10 @@ class WallStore extends EventEmitter {
 
 	getSelectedId(){
 		return this.selectedId;
+	}
+
+	getBG(){
+		return this.items.background;
 	}
 
 	setLoadData(loadedItems){

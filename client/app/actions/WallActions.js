@@ -59,6 +59,13 @@ class WallActions {
         });
 	}
 
+	wallSetBG(bg) {
+		Dispatcher.dispatch({
+			actionType: ActionTypes.WALL_SET_BG,
+			payload: bg,
+		});
+	}
+
 }
 
 export default new WallActions();

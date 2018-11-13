@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles.scss';
-import { Group, Stage, Layer, } from 'react-konva';
+import { Group, Stage, Layer, Image } from 'react-konva';
 import WallActions from '../../actions/WallActions';
 import WallStore from '../../stores/WallStore';
 import TextBox from './Item/TextBox';
@@ -97,6 +97,7 @@ export default class Wall extends React.Component {
     }
 
 
+
     handleClick(e) {
         if(e.target == this.refs.stage.getStage())
             WallActions.itemClick(null);
@@ -155,6 +156,25 @@ export default class Wall extends React.Component {
         if (this.props.edit){
             transformer = <TransformerComponent />;
         }
+
+        let bgimg = WallStore.getBG().pattern ? null : WallStore.getBG().src
+        let background = (
+            <Image
+                image={bgimg}
+                fillPatternImage={WallStore.getBG().src}
+                x={-WallStore.getBG().width/2}
+                y={-WallStore.getBG().height/2}
+                width={WallStore.getBG().width}
+                height={WallStore.getBG().height}
+                onClick={(e)=>this.handleClick(e)}
+            />
+        );
+        /*
+        x={-WallStore.getBG().width/2}
+        y={-WallStore.getBG().height/2}
+        width={WallStore.getBG().width}
+        height={WallStore.getBG().height}
+        */
         return (
             <div id="wall"
                 onMouseOver={()=>{this.mouseOverStage = true;}}
@@ -168,6 +188,7 @@ export default class Wall extends React.Component {
                     onClick={(e)=>this.handleClick(e)}
                 >
                     <Layer>
+                        {background}
                         {itemsJSX}
                         {transformer}
                     </Layer>

@@ -19,7 +19,7 @@ $bg-light-color:					#E6E6EA;
 $bg-lighter-color:				#F4F4F8;
 */
 #content-wrapper {
-	position: absolute;
+	position: fixed;
 	top:$navbar-height;
 	bottom:0px;
 	width: 100%;
@@ -35,6 +35,8 @@ body {
     height: 100%;
 	background-color: $bg-lighter-color;
 }
+
+/* -------- SIDE BAR -------- */
 
 .sidebar-content-items {
 	background-color: $bg-light-color;
@@ -194,6 +196,27 @@ html, body, #app, #app>div {
 
 .option:hover {
     background-color: $secondary-light-color;
+}
+
+.widget {
+	margin: 10px 20px;
+	border-radius: 5px;
+	background-color: $bg-lighter-color;
+	color: black;
+}
+
+.widget .header {
+	background-color: $secondary-color;
+	border-radius: 5px 5px 0px 0px;
+	padding: 5px;
+}
+
+.widget-content {
+	padding: 10px;
+}
+
+.widget-header {
+	text-align: center;
 }
 
 .header {
