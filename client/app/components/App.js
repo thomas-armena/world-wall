@@ -106,9 +106,6 @@ export default class App extends React.Component {
             </div>
         );
 
-
-
-
         const About = () => (
             <div>About</div>
         );
