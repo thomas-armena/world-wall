@@ -1,8 +1,8 @@
 import React from 'react';
 import '../styles.scss';
 import WallStore from '../../stores/WallStore';
-import WallActions from '../../actions/WallActions';
 import UserStore from '../../stores/UserStore';
+import WallActions from '../../actions/WallActions';
 import axios from 'axios';
 import FWindowActions from '../../actions/FWindowActions';
 
@@ -34,6 +34,10 @@ export default class ProjectDropdown extends React.Component {
     }
 
     handleLoad(){
+        if (UserStore.getUser() == null){
+            window.alert('Please register or sign in.');
+            return;
+        }
         axios.defaults.withCredentials = true;
         axios.post(process.env.WALL_LOAD, { author: UserStore.getUser().username })
             .then(response=>{
@@ -48,6 +52,10 @@ export default class ProjectDropdown extends React.Component {
     }
 
     handleSave(){
+        if (UserStore.getUser() == null){
+            window.alert('Please register or sign in.');
+            return;
+        }
         FWindowActions.fWindowContent('SAVE');
         FWindowActions.fWindowShow();
     }
@@ -58,11 +66,19 @@ export default class ProjectDropdown extends React.Component {
     }
 
     handleSetUrl(){
+        if (UserStore.getUser() == null){
+            window.alert('Please register or sign in.');
+            return;
+        }
         FWindowActions.fWindowContent('SET_URL');
         FWindowActions.fWindowShow();
     }
 
     handleGetUrl(){
+        if (UserStore.getUser() == null){
+            window.alert('Please register or sign in.');
+            return;
+        }
         FWindowActions.fWindowContent('GET_URL');
         FWindowActions.fWindowShow();
     }

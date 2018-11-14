@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var cookieParser = require('cookie-parser');
-require('dotenv').config()
+require('dotenv').config();
 
 
 //Connect to database
@@ -36,7 +36,7 @@ app.use(session({
 
 // Add headers
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', process.env.URL);//'http://159.203.29.234:8080');
+    res.setHeader('Access-Control-Allow-Origin', process.env.URL);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
