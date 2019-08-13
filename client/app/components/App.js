@@ -177,7 +177,6 @@ export default class App extends React.Component {
                         <i className="material-icons left icon" onClick={this.handleClickMenu}>toc</i>
                         <div className='nav-desktop'>
                             <ul>
-                                <li className='left'><MenuLink activeOnlyWhenExact={true} to="/" label="Home" /></li>
                                 <li className='left'><MenuLink to="/create" label="Create" /></li>
                                 <li className='left'><MenuLink to="/view/4kings" label="View" /></li>
                             </ul>
@@ -189,7 +188,7 @@ export default class App extends React.Component {
                     {UserDropDown}
                     {MenuDropDown}
                     <div id="content-wrapper">
-                        <Route exact path="/" component={Home} />
+                        <Route exact path="/" component={Editor} />
                         <Route path="/create" component={Editor} />
                         <Route path="/view/:id" component={View} />
                         <Route path="/about" component={About} />

@@ -55,12 +55,6 @@ export default class Home extends React.Component {
         return(
             <div className='home row'>
 
-
-                <div className='home-splash-content seven columns'>
-                </div>
-
-
-
                 <div className='home-login-content five columns'>
                     <h3>Register</h3>
 
@@ -104,6 +98,12 @@ export default class Home extends React.Component {
 
                     <button className="button-primary" onClick={this.signIn}>Sign in</button>
                 </div>
+
+                <div className='home-splash-content'>
+                  <div className = 'home-splash-center-box'></div>
+                </div>
+
+
             </div>
         );
     }
